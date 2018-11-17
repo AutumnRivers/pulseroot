@@ -1,0 +1,52 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='../default.css')
+		title PulseRoot Signup
+	body
+		ul.navbar
+
+			li.logotitle
+
+				a(href='/') PulseRoot
+
+			li
+
+				a(href='/gc') Global Chat
+
+			li.dropdown
+
+				a.dropbtn(href='javascript:void(0)') Info
+
+				.dropdown-content
+					a(href='/contact.html') Contact Me
+					a(href='/privacy.html') Privacy Policy
+					a(href='/tac.html') Terms & Conditions
+
+		h1 PulseRoot Signup
+		h2 Secure a username so nobody else can take it.
+
+		hr
+		if(message)
+			h4
+			span(style="color:red") #{message}
+		div.rightInfo
+			h3 Why should I secure a username?
+			p If you go by a certain name on the internet (for example, I go by Smartie), you may want to secure a username so nobody can impersonate you.
+			h3 No email verification?
+			p No... not yet! I'll implement it when I can get the code running on a 24/7 dedicated server.
+			h3 Any other reason I should secure a name?
+			p Yes! 
+				a(href="./reasons.html") Here is why.
+			h3 Where is all of this stored?
+			p In a database! Your details are sent straight to it.
+			h3 In plain text?!?
+			p For the username and display name? Yes. For the password? Haha, no. The password is encrypted before it's saved. Yay for crypto-security!
+		form(action="/signup" method="POST")
+			h3 Username*
+			input(name="username" required type="text" placeholder="Username")
+			h3 Password*
+			input(name="password" required type="password" placeholder="Password")
+			h3 Display Name
+			input(name="display" type="text" placeholder="Display Name")
+			button(type="Submit") Save Profile

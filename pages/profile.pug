@@ -1,0 +1,32 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='../default.css')
+		title #{userinfo.username}'s Profile
+	body
+		ul.navbar
+
+			li.logotitle
+
+				a(href='/') PulseRoot
+
+			li
+
+				a(href='/gc') Global Chat
+
+			li.dropdown
+
+				a.dropbtn(href='javascript:void(0)') Info
+
+				.dropdown-content
+					a(href='/contact.html') Contact Me
+					a(href='/privacy.html') Privacy Policy
+					a(href='/tac.html') Terms & Conditions
+
+		h1 #{userinfo.display}
+		h3.center #{userinfo.username}
+		h2 #{userinfo.description}
+
+		hr
+
+		p.center There's nothing here quite yet... but there will be in the full release!

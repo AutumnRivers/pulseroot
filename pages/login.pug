@@ -1,0 +1,43 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='../default.css')
+		title PulseRoot Login
+	body
+		ul.navbar
+
+			li.logotitle
+
+				a(href='/index.html') PulseRoot
+
+			li
+
+				a(href='/gc') Global Chat
+
+			li.dropdown
+
+				a.dropbtn(href='javascript:void(0)') Info
+
+				.dropdown-content
+					a(href='/contact.html') Contact Me
+					a(href='/privacy.html') Privacy Policy
+					a(href='/tac.html') Terms & Conditions
+
+		h1 PulseRoot Login
+		h2 Login to PulseRoot, no witty remark here.
+
+		hr
+		if(message)
+			h4
+			span(style="color:red") #{message}
+		div.rightInfo
+			h3 Don't have an account?
+			p Easy, 
+				a(href="./signup") sign up for one.
+
+		form(action="/login" method="POST")
+			h3 Username*
+			input(name="username" required type="text" placeholder="Username")
+			h3 Password*
+			input(name="password" required type="password" placeholder="Password")
+			button(type="Submit") Login

@@ -1,0 +1,59 @@
+doctype html
+
+head
+
+	style.
+
+		@import url("../chat.css");
+
+	script(src='/socket.io/socket.io.js')
+
+	script(src='https://code.jquery.com/jquery-1.11.1.js')
+
+	script.
+
+		$(function () {
+
+		var socket = io();
+
+		$('form').submit(function(){
+
+		var usr = '#{username}'
+		socket.emit('chat message', $('#m').val(), usr);
+
+		$('#m').val('');
+
+		return false;
+
+		});
+
+		socket.on('chat message', function(data){
+		console.log(data);
+		//$('#messages').append($('<li>').text(msg));
+		$('#messages').append($('<li><span style="font-weight: bold">' + data.username + '</span><br/><span style="color:' + data.color + '">' + data.msg + '</span></li>'));
+		var div = document.getElementById("chat");
+		div.scrollTop = div.scrollHeight;
+		});
+		});
+	title PulseRoot - Global Chat
+
+	link(rel='stylesheet' type='text/css' href='../default.css')
+	meta(property='og:title' content='PulseRoot Global Chat')
+	meta(property='og:description' content='The global chat room for PulseRoot')
+	meta(name='theme-color' content='#006d3f')
+	meta(name='viewport' content='width=device-width initial-scale=1.0')
+
+body
+	h4
+
+		a(href='../index.html') Back To Home
+
+		span.floatRight Logged in as #{username}
+	div#chat
+		ul#messages
+	form(action='')
+
+		input#m(autocomplete='off' placeholder='Type into the chat...')
+
+		button Send
+

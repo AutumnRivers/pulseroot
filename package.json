@@ -1,0 +1,35 @@
+{
+  "name": "pulseroot",
+  "version": "0.2.0",
+  "description": "Fast, secure, and reliable web chat application.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/SmartieCodes/pulseroot"
+  },
+  "keywords": [
+    "web",
+    "chat",
+    "app",
+    "express",
+    "socket.io",
+    "sqlite"
+  ],
+  "author": "SmartieCodes",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "connect-sqlite3": "^0.9.11",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "markdown": "^0.5.0",
+    "node-fetch": "^2.3.0",
+    "pug": "^2.0.3",
+    "socket.io": "^2.1.1",
+    "sqlite": "^3.0.0"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,101 @@
+doctype html
+
+html
+	head
+
+		script(src='/socket.io/socket.io.js')
+
+		script.
+
+			var socket = io();
+
+		title PulseRoot
+
+		link(rel='stylesheet', type='text/css', href='./default.css')
+
+	body
+
+		ul.navbar
+
+			li.logotitle
+
+				a(href='/') PulseRoot
+
+			li
+
+				a(href='/gc') Global Chat
+
+			li.dropdown
+
+				a.dropbtn(href='javascript:void(0)') Info
+
+				.dropdown-content
+
+					a(href='./contact.html') Contact Me
+					a(href='./privacy.html') Privacy Policy
+
+					a(href='./tac.html') Terms & Conditions
+
+			li.dropdown.account
+				if(user)
+					a.dropbtn(href='javascript:void(0)') #{user.username}
+					.dropdown-content
+						a(href='/profile') View Profile
+						a(href='/logout') Logout
+				if(!user)
+					a(href='/login') Login &amp; Signup
+		h1 PulseRoot
+
+		h2 Secure, fast, reliable web chat.
+
+		hr
+
+		h3
+
+			| What is 
+			i PulseRoot
+
+			| ?
+
+		p
+
+			| PulseRoot is a web chat application created by 
+
+			a(href='https://smartsite.glitch.me/') Smartie
+
+			| . It was a small socket.io project originally only made to be used locally and by a few people at that.
+		h3 Why should I use it?
+
+		p
+
+			| Well, for one, 
+
+			b your data is safe and sound.
+
+			|  Nobody is getting to it. Even if they did, they'd have to deal with an encryption algorithm. Secondly, your messages are safe. I don't store them anywhere - they stay in your browser.
+
+		h3 Talk is cheap, show me the code!
+
+		p
+
+			a(href='https://www.github.com/SmartieCodes/pulseroot') Gladly!
+
+		footer
+
+			ul.foot
+
+				li
+
+					a(href='./privacy.html') Privacy Policy
+
+					|  |
+
+				li
+
+					a(href='./tac.html') Terms & Conditions
+
+					|  |
+
+				li
+
+					a(href='./info.html') Full Info
