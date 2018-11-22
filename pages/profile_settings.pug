@@ -1,0 +1,128 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='../default.css')
+		style.
+			button {
+			width:auto;
+			}
+		title PulseRoot Profile Settings
+	body
+		ul.navbar
+
+			li.logotitle
+
+				a(href='/') PulseRoot
+
+			li
+
+				a(href='/gc') Global Chat
+
+			li.dropdown
+
+				a.dropbtn(href='javascript:void(0)') Info
+
+				.dropdown-content
+					a(href='/contact.html') Contact Me
+					a(href='/privacy.html') Privacy Policy
+					a(href='/tac.html') Terms & Conditions
+
+		h1 Profile Settings
+		h2 Set things here. Simple.
+
+		hr
+
+		p(style="color:red") Usernames are locked, so you cannot change them.
+		input(type="text" disabled value=userinfo.username)
+
+		form(action='/profile/save/display', method='POST')
+			h3 Display Name
+			input(type="text" name="display" placeholder="Display Name")
+			br
+			button(type="submit") Update Display Name
+
+		form(action='/profile/save/password', method='POST')
+			h3 Password
+			if(messagePass)
+				p(style="color:red") #{messagePass}
+			input(type="password" name="currentPass" required placeholder="Current Password")
+			br
+			br
+			input(type="password" name="newPass" required placeholder="New Password")
+			br
+			button(type="submit") Update Password
+
+		form(action='/profile/save/color', method='POST')
+			h3 Color Picker
+			input(type="color" name="namecolor")
+			button(type="submit" style="display:block") Update Color
+
+		h2 Integrations
+		h3 Discord
+		p Integrating with Discord allows you to use your Discord avatar as your PulseRoot avatar, along with more in the future.
+		if(!discordInfo)
+			a(href="/auth/discord/login")
+				button(type="button") Connect your Discord account
+		if(discordInfo)
+			h4 Currently Connected Account
+			p
+				img(height="128px" width="auto" alt=`${discordInfo.username}'s Profile Picture` src=`https://cdn.discordapp.com/avatars/${discordInfo.id}/${discordInfo.avatar}.jpg`)
+			p #{discordInfo.username}&num;#{discordInfo.discriminator}
+			if(!userinfo.avatar || !userinfo.avatar.startsWith('https://cdn.discordapp.com'))
+				a(href="/profile/save/avatar?service=discord")
+					button(type="button") Use Discord Avatar
+			else
+				button(type="button" disabled) Discord Avatar Set
+				a(href="/profile/save/avatar?service=discord")
+					button(type="button" title="Discord avatars are lost as soon as you set a new one, so you may wish to refresh your avatar if you set a new one on Discord.") Refresh Avatar
+			
+		h3 Twitter
+		p Integrating with Twitter not only lets you use your Twitter avatar as your PulseRoot avatar, but you can also use your Twitter bio as your PulseRoot description!
+		if(!twitterInfo)
+			form(action='/auth/twitter/login' method='POST')
+				h3 Twitter Username
+				input(type="text" required name="twitterUser" placeholder="SmartiePlays_")
+				button(type="button" style="display:block") Connect your Twitter account
+		if(twitterInfo)
+			h4 Currently Connected Account
+			p
+				img(src=twitterInfo.avURL height="128px" width="auto" alt=`${twitterInfo.tag}'s Profile Picture`)
+			p #{twitterInfo.displayName} (&commat;#{twitterInfo.tag})
+			h5 Bio
+			p #{twitterInfo.desc}
+			if(!userinfo.avatar || !userinfo.avatar.startsWith('https://pbs.twimg.com'))
+				a(href="/profile/save/avatar?service=twitter")
+					button(type="button") Use Twitter Avatar
+			else
+				button(type="button" disabled) Twitter Avatar Set
+			form(action='/profile/save/desc?service=twitter', method='POST')
+				button(type="submit") Use Twitter Bio
+
+		h3 Miicord
+		p Coming Soon
+
+		h3 Google
+		p Coming Soon
+
+		h3 GitHub
+		p Coming Soon
+		footer
+
+			ul.foot
+
+				li
+
+					a(href='./privacy.html') Privacy Policy
+
+					|  |
+
+				li
+
+					a(href='./tac.html') Terms & Conditions
+
+					|  |
+
+				li
+
+					a(href='./info.html') Full Info
+

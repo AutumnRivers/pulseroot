@@ -19,7 +19,9 @@ head
 		$('form').submit(function(){
 
 		var usr = '#{username}'
-		socket.emit('chat message', $('#m').val(), usr);
+		var dis = '#{display}'
+		var nc = '#{namecolor}'
+		socket.emit('chat message', $('#m').val(), usr, dis, nc);
 
 		$('#m').val('');
 
@@ -29,8 +31,15 @@ head
 
 		socket.on('chat message', function(data){
 		console.log(data);
+		if(data.username)
+		var username = data.username
+		if(!namecolor)
+		var namecolor = '#ffffff'
 		//$('#messages').append($('<li>').text(msg));
-		$('#messages').append($('<li><span style="font-weight: bold">' + data.username + '</span><br/><span style="color:' + data.color + '">' + data.msg + '</span></li>'));
+		if(data.username)
+			$('#messages').append($('<li><span style="font-weight: bold; color: #{namecolor}"><a href="/profile/#{username}" class="display" style="padding: 0; margin: 0">' + data.display + '</a></span><span class="timestamp">' + data.date + '</span><br/><span style="color:' + data.color + '">' + data.msg + '</span></li>'));
+		else
+			$('#messages').append($('<li><span style="font-weight: bold">' + data.display + '</span><span class="timestamp">' + data.date + '</span><br/><span style="color:' + data.color + '">' + data.msg + '</span></li>'));
 		var div = document.getElementById("chat");
 		div.scrollTop = div.scrollHeight;
 		});
@@ -48,7 +57,7 @@ body
 
 		a(href='../index.html') Back To Home
 
-		span.floatRight Logged in as #{username}
+		span.floatRight Logged in as #{display}
 	div#chat
 		ul#messages
 	form(action='')

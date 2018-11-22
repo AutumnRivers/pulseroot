@@ -1,0 +1,8 @@
+Navbar
+#001902
+
+Background
+#1C401E
+
+Other
+#114115

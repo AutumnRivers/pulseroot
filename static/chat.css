@@ -14,7 +14,8 @@ form {
 
 form input {
 	width: 90%;
-	background: #23272A;
+	/*background: #23272A;*/
+	background:#002b03;
 	border: 1px solid transparent;
 	border-radius: 5px;
 	color: white;
@@ -27,7 +28,8 @@ form input {
 
 form button {
 	width: 7%;
-	background: #23272A;
+	/*background: #23272A;*/
+	backgound:#002b03;
 	border:1px solid transparent;
 	border-radius: 5px;
 	color: white;
@@ -38,7 +40,8 @@ form button {
 
 form button:hover {
 	cursor: pointer;
-	background: #171a1c;
+	/*background: #171a1c;*/
+	background:rgba(0,0,0,0.2)
 }
 
 #messages {
@@ -49,6 +52,11 @@ form button:hover {
 
 #messages li {
 	padding: 10px;
+	background:#001902;
+}
+
+#messages li:nth-child(even) {
+	background: rgba(0,25,2,0.6)
 }
 
 br {
@@ -57,7 +65,7 @@ br {
 }
 
 #messages li:nth-child(odd) {
-	background:#3a4145;
+	/*background:#001902;*/
 }
 
 #chat {
@@ -73,6 +81,11 @@ br {
 #chat img {
 	max-width: 90%;
 	max-height: 60vh;
+	border-radius: 0;
+}
+
+.timestamp {
+	float: right;
 }
 
 @media screen and (max-width: 700px) {

@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
 
 body {
-	background: #2C2F33;
+	/* background: #2C2F33; */
+	background: #152b16;
 	color: white;
 	font-size: 100%;
 	font-family: 'Ubuntu', 'sans-serif';
@@ -12,7 +14,14 @@ body {
 
 a {
 	text-decoration: none;
-	color: white;
+	/*color: white;*/
+	color:#60ff6b;
+	padding: 0;
+	margin: 0;
+}
+
+a.display {
+	color: inherit;
 }
 
 a:hover {
@@ -35,7 +44,8 @@ ul.navbar {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background: #23272A;
+	/*background: #23272A;*/
+	background: #001902;
 }
 
 .navbar li {
@@ -55,7 +65,8 @@ li a, .dropbtn {
 }
 
 .navbar li a:hover, .dropdown:hover .dropbtn {
-	background-color:#171a1c;
+	/*background-color:#171a1c;*/
+	background: rgba(255,255,255,0.05)
 }
 
 li.dropdown {
@@ -65,7 +76,8 @@ li.dropdown {
 .dropdown-content {
 	display: none;
 	position: absolute;
-	background:#3a4145;
+	/*background:#3a4145;*/
+	background:#002b03;
 	min-width: 160px;
 	z-index: 1;
 }
@@ -111,12 +123,17 @@ h1, h2, .center {
 	text-align: center;
 }
 
+i {
+	font-family: 'Ubuntu', 'sans-serif';
+}
+
 .floatRight {
 	float: right;
 }
 
 input, button {
-	background: #23272A;
+	/*background: #23272A;*/
+	background:#002b03;
 	color: white;
 	border: 1px solid black;
 	border-radius: 5px;
@@ -136,6 +153,32 @@ button {
 	float: right;
 	text-align: right;
 	width: 50%;
+}
+
+button {
+	display: inline-block;
+	width: auto;
+}
+
+button:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+button[disabled], input[disabled] {
+	color: grey;
+	cursor: not-allowed;
+}
+
+input[type=color] {
+	padding: 10px;
+	height: 50px;
+	width: 400px;
+}
+
+img:not(.no-round) {
+	border: 1px solid transparent;
+	border-radius: 100%;
 }
 
 /* Responsiveness */

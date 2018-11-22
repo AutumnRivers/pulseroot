@@ -4,7 +4,9 @@
   "description": "Fast, secure, and reliable web chat application.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lt": "lt --port 8080",
+    "server": "run-p start lt"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^3.0.2",
+    "btoa": "^1.2.1",
     "connect-sqlite3": "^0.9.11",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
@@ -31,5 +34,7 @@
     "socket.io": "^2.1.1",
     "sqlite": "^3.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "npm-run-all": "^4.1.3"
+  }
 }

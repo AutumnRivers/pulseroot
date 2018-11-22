@@ -22,11 +22,40 @@ html
 					a(href='/contact.html') Contact Me
 					a(href='/privacy.html') Privacy Policy
 					a(href='/tac.html') Terms & Conditions
-
-		h1 #{userinfo.display}
+		p.center
+			if(!userinfo.avatar)
+				img(src='/defaultAvatar.jpg' alt=`${userinfo.username}'s Avatar` height='200px' width=auto)
+			if(userinfo.avatar)
+				img(src=userinfo.avatar alt=`${userinfo.username}'s Avatar` height='200px' width=auto)
+		h1(style=`color:${namecolor}`)
+			| #{userinfo.display}&nbsp;
+			if(userinfo.level === 'dev')
+				i(class='fab fa-node-js' title='PulseRoot Developer')
+			else if(userinfo.level === 'admin')
+				i(class='fas fa-cogs' title='PulseRoot Administrator')
+			else
+				i(class='far fa-user' title='User')
 		h3.center #{userinfo.username}
-		h2 #{userinfo.description}
+		if(user === userinfo.username)
+			p.center
+				a(href="/profile/settings")
+					button(type="button") Update Profile Settings
 
 		hr
 
-		p.center There's nothing here quite yet... but there will be in the full release!
+		h3 Description
+		if(!userinfo.description)
+			p
+				i Hello! I don't have a description yet.
+		else
+			p #{userinfo.description}
+
+		h3 Integrations
+		if(!discordInfo && !twitterInfo)
+			p(title="No Integrations Connected") This person doesn't seem to have much of a social life.
+		if(discordInfo)
+			h4 Discord
+			p #{discordInfo}
+		if(twitterInfo)
+			h4 Twitter
+			p &commat;#{twitterInfo}
