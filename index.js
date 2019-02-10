@@ -53,6 +53,18 @@ app.use('/auth/twitter', require('./apis/twitter'));
  * Twitter: app.url.here/auth/twitter
  */
 
+//Set important headers
+app.use(function(req, res, next) {
+	res.set({
+		"Content-Security-Policy": "frame-src 'none'; script-src 'unsafe-inline' 'self' https://code.jquery.com/ https://cdnjs.cloudflare.com/; style-src 'unsafe-eval' 'unsafe-inline' 'self' https://fonts.googleapis.com/ https://use.fontawesome.com/ https://cdnjs.cloudflare.com/ https://neet.host/; img-src 'self' data: https://cdn.discordapp.com/ https://pbs.twimg.com/; font-src 'self' https://use.fontawesome.com/ https://fonts.gstatic.com/ data:; default-src 'self';",
+		"X-XSS-Protection": "1", //Cross-site attack fallback protection - this is useless in Firefox
+		"Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+		"X-Frame-Options": "DENY",
+		"X-Content-Type-Options": "nosniff"
+	});
+	next();
+});
+
 var http = require('http').Server(app); //HTTP server for socket.io
 const io = require('socket.io')(http); //Take a guess
 
