@@ -1,3 +1,6 @@
+# Important
+This repo is now only for my personal commits to PulseRoot - everything made here may or may not go into production. If you're interested in seeing the **most updated public code** then please visit the [new repo](https://www.github.com/diamondgrid/pulseroot-web).
+
 # PulseRoot
 ## Secure, fast, and reliable web chat application.
 
