@@ -4,98 +4,138 @@ html
 	head
 
 		script(src='/socket.io/socket.io.js')
+		script(src='/functions.js')
+		script(src='/bower_components/crypto-js/crypto-js.js')
 
 		script.
 
 			var socket = io();
+			socket.on('pm', function(data){
+			const decryptMsg = CryptoJS.AES.decrypt(data.msg, data.secretKey);
+			const decryptedMessage = decryptMsg.toString(CryptoJS.enc.Utf8);
+			sendNotification(data, decryptedMessage);
+			})
 
 		title PulseRoot
 
 		link(rel='stylesheet', type='text/css', href='./default.css')
+		
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+		meta(property='og:title' content='PulseRoot')
+		meta(property='og:description' content='Secure, fast, and reliable web chat for the modern internet.')
+		meta(property='og:image' content='/banner_transparent.png')
+		link(rel='manifest' href='/a2hs.webmanifest')
+		link(rel='icon' href='/favicon.ico' type='image/x-icon')
 
 	body
 
-		ul.navbar
-
-			li.logotitle
-
-				a(href='/') PulseRoot
-
-			li
-
-				a(href='/gc') Global Chat
-
-			li.dropdown
-
-				a.dropbtn(href='javascript:void(0)') Info
-
-				.dropdown-content
-
-					a(href='./contact.html') Contact Me
-					a(href='./privacy.html') Privacy Policy
-
-					a(href='./tac.html') Terms & Conditions
-
-			li.dropdown.account
-				if(user)
-					a.dropbtn(href='javascript:void(0)') #{user.username}
+		nav
+			ul.navbar
+			
+				li.mobileNavOpen
+					a(onclick='showMobileNav()') PulseRoot
+	
+				li.logotitle
+	
+					a(href='/') PulseRoot
+	
+				li.gc
+	
+					a(href='/gc') Global Chat
+	
+				li.dropdown
+	
+					a.dropbtn(href='javascript:void(0)') Info
+	
 					.dropdown-content
-						a(href='/profile') View Profile
-						a(href='/logout') Logout
-				if(!user)
+	
+						a(href='./contact.html') Contact Me
+						a(href='./privacy.html') Privacy Policy
+						a(href='./download.html') Download
+						a(href='./tac.html') Terms &amp; Conditions
+	
+				li.dropdown.account
+					if(user)
+						a.dropbtn(href='javascript:void(0)') #{user.username}
+						.dropdown-content
+							a(href='/profile') View Profile
+							a(href='/preferences') Preferences
+							a(href='/logout') Logout
+					if(!user)
+						a(href='/login') Login &amp; Signup
+						
+		<!-- Navbar for mobile users -->
+		div.mobileNavMenu#mobileMenu
+			a(href="javascript:void(0)" class="closeNavBtn" onclick="closeMobileNav()") &times;
+			div.mobileNavItems
+				a(href='javascript:void(0)' style="font-size: 30px; color: darkgreen;")
+					b PulseRoot
+				a(href='javascript:void(0)') &nbsp;
+				a(href='/index.html') Home
+				a(href='/gc') Global Chat
+				a(href='/info.html') Legal/Tech Info
+				if(user)
+					a(href='/profile') #{user.username}'s Profile
+					a(href='/preferences') Preferences
+					a(href='/logout') Logout
+					a &nbsp;
+				else
 					a(href='/login') Login &amp; Signup
-		h1
-			img(src="/banner_transparent.png" height="auto" width="auto" alt="PulseRoot" class="no-round")
-		h2 Secure, fast, reliable web chat.
+					a &nbsp;
+						
+		main
+			h1
+				img(src="/banner_transparent.png" height="auto" width="auto" alt="PulseRoot" class="no-round banner")
+			h2 Secure, fast, reliable web chat.
+	
+			hr
+	
+			h3
+	
+				| What is 
+				i PulseRoot
+	
+				| ?
+	
+			p
+	
+				| PulseRoot is a web chat application created by 
+	
+				a(href='https://smartsite.glitch.me/') Smartie
+	
+				| . It was a small socket.io project originally only made to be used locally and by a few people at that.
+			h3 Why should I use it?
+	
+			p
+	
+				| Well, for one, 
+	
+				b your data is safe and sound.
+	
+				|  Nobody is getting to it. Even if they did, they'd have to deal with an encryption algorithm. Secondly, your messages are safe. I don't store them anywhere - they stay in your browser.
+	
+			h3 Talk is cheap, show me the code!
+	
+			p
+	
+				a(href='https://www.github.com/SmartieCodes/pulseroot') Gladly!
 
-		hr
-
-		h3
-
-			| What is 
-			i PulseRoot
-
-			| ?
-
-		p
-
-			| PulseRoot is a web chat application created by 
-
-			a(href='https://smartsite.glitch.me/') Smartie
-
-			| . It was a small socket.io project originally only made to be used locally and by a few people at that.
-		h3 Why should I use it?
-
-		p
-
-			| Well, for one, 
-
-			b your data is safe and sound.
-
-			|  Nobody is getting to it. Even if they did, they'd have to deal with an encryption algorithm. Secondly, your messages are safe. I don't store them anywhere - they stay in your browser.
-
-		h3 Talk is cheap, show me the code!
-
-		p
-
-			a(href='https://www.github.com/SmartieCodes/pulseroot') Gladly!
-
-		footer
-
-			ul.foot
-
-				li
-
-					a(href='./privacy.html') Privacy Policy
-
-					|  |
-
-				li
-
-					a(href='./tac.html') Terms & Conditions
-
-					|  |
-
-				li
-
-					a(href='./info.html') Full Info
+			footer
+	
+				ul.foot
+	
+					li
+	
+						a(href='./privacy.html') Privacy Policy
+	
+						|  |
+	
+					li
+	
+						a(href='./tac.html') Terms & Conditions
+	
+						|  |
+	
+					li
+	
+						a(href='./info.html') Full Info

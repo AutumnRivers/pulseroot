@@ -1,0 +1,192 @@
+doctype html
+html
+	head
+		script.
+		
+			function showTextArea() {
+				document.getElementById("textareaCustomCSS").style.display = "block";
+				document.getElementById("textareaCustomCSS").style.require = true;
+			}
+			
+			function hideTextArea() {
+				document.getElementById("textareaCustomCSS").style.display = "none";
+				document.getElementById("textareaCustomCSS").style.require = false;
+			}
+
+		style.
+		
+			#textareaCustomCSS {
+				display: none;
+			}
+
+		link(rel='stylesheet', type='text/css', href='/default.css')
+		script(src='/functions.js' type='text/javascript')
+		title PulseRoot Preferences
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+	body
+		nav
+			ul.navbar
+			
+				li.mobileNavOpen
+				
+					a(onclick='showMobileNav()') PulseRoot
+	
+				li.logotitle
+	
+					a(href='/index.html') PulseRoot
+	
+				li.gc
+	
+					a(href='/gc') Global Chat
+	
+				li.dropdown
+	
+					a.dropbtn(href='javascript:void(0)') Info
+	
+					.dropdown-content
+						a(href='/contact.html') Contact Us
+						a(href='/privacy.html') Privacy Policy
+						a(href='/tac.html') Terms & Conditions
+						
+				li.dropdown.account
+					if(user)
+						a.dropbtn(href='javascript:void(0)') #{user.username}
+						.dropdown-content
+							a(href='/profile') View Profile
+							a(href='/preferences') Preferences
+							if(user.level === 'admin' || user.level === 'dev')
+								a(href='/admin') Admin Dashboard
+							a(href='/logout') Logout
+					if(!user)
+						a(href='/login') Login &amp; Signup
+						
+		<!-- Navbar for mobile users -->
+		div.mobileNavMenu#mobileMenu
+			a(class="closeNavBtn" onclick="closeMobileNav()") &times;
+			div.mobileNavItems
+				a(style="font-size: 30px; color: darkgreen;")
+					b PulseRoot
+				a(href='javascript:void(0)') &nbsp;
+				a(href='/index.html') Home
+				a(href='/gc') Global Chat
+				a(href='/info.html') Legal/Tech Info
+				if(user)
+					a(href='/profile') #{user.username}'s Profile
+					a(href='/preferences') Preferences
+					a(href='/logout') Logout
+					a &nbsp;
+				else
+					a(href='/login') Login &amp; Signup
+					a &nbsp;
+						
+		main
+			h1 PulseRoot Preferences
+			h2 Change some things around.
+			
+			hr
+			
+			form(action="/user/preferences" method="POST")
+				h3(class="center") Privacy Settings
+				h4 Private Message Location
+				p Private messages are private. Obviously. But you may have a tinfoil hat on and not believe IndexedDB is secure enough! Understandable. Here, you can choose to opt-out of IndexedDB usage. Don't know what IndexedDB is? I'll explain. When a mommy and a daddy love each other very much, they get married, and then- wait. Shit. Wrong script.
+				p Do note this does not opt-out your partner from using IndexedDB. Meaning that messages you send will still be saved on their side if they have IndexedDB enabled. This just disables it on your side and does not save them to your browser.
+				p Read up on IndexedDB on the 
+					a(href="https://developer.mozilla.org/en-US/docs/Glossary/IndexedDB" target="_blank") Mozilla Developer Network
+					| .
+				
+				label.container Store With IndexedDB
+					input(type="checkbox" name="indexdb" value="use" id="indexedCheck" checked)
+					span.checkmark
+				
+				h4 Profile Privacy
+				p Don't like being looked upon? Same. You can hide your profile if you prefer to drink your tea alone... no guarantees the FBI guy watching you can't see your profile. 
+					a(href="https://vignette.wikia.nocookie.net/katawashoujo/images/7/72/Lilly_tearoom.jpg/revision/latest?cb=20170310170809" target="_blank") Even the most of avid of tea drinkers enjoy some privacy.
+				
+				label.container Hide Profile
+					input(type="checkbox" name="profilePrivacy" value="hide" id="checkboxProfileHide")
+					span.checkmark
+				
+				h4 Private Messaging
+				p We don't all like getting messages! I get that! So check this out, you can make it so that whenever someone tries to send you a private message, they get greeted with a 404 page instead. Neat, right?
+				p This does mean you won't be able to pm anyone else. Choose wisely, young traveller!
+				
+				label.container Disable Private Messaging
+					input(type="checkbox" name="pmPrivacy" value="enable" id="checkboxPMHide")
+					span.checkmark
+				
+				hr
+				
+				h3(class="center") Appearance
+				h4 Theming
+				p Tired of green? I'm not! But you might be. And instead of just offering dark and light (looking at you, every single chat platform out there), we offer a wide variety of themes. Don't like any of them? You can make your own... provided you know basic CSS.
+				
+				section#mainThemes
+					input(type="radio" name="theme" value="default" id="defaultRadioTheme" onclick="hideTextArea()" checked)
+					label(for="defaultRadioTheme") PulseRoot Green (Default)
+		
+					br
+					
+					input(type="radio" name="theme" value="blue" id="blueRadioTheme" onclick="hideTextArea()")
+					label(for="blueRadioTheme") Pulsating Blue
+		
+					br
+					
+					input(type="radio" name="theme" value="red" id="redRadioTheme" onclick="hideTextArea()")
+					label(for="redRadioTheme") Volcanic Red
+		
+					br
+					
+					input(type="radio" name="theme" value="orange" id="orangeRadioTheme" onclick="hideTextArea()")
+					label(for="orangeRadioTheme") Citrus Orange
+		
+					br
+					
+					input(type="radio" name="theme" value="pastel" id="pastelRadioTheme" onclick="hideTextArea()")
+					label(for="pastelRadioTheme") Pastel Dreams
+		
+					br
+					
+					input(type="radio" name="theme" value="amoled" id="AMOLEDRadioTheme" onclick="hideTextArea()")
+					label(for="AMOLEDRadioTheme") AMOLED Black
+		
+					br
+					
+					input(type="radio" name="theme" value="terminal" id="terminalRadioTheme" onclick="hideTextArea()")
+					label(for="terminalRadioTheme") Unix Terminal
+		
+					br
+					
+					input(type="radio" name="theme" value="note" id="paperRadioTheme" onclick="hideTextArea()")
+					label(for="paperRadioTheme") Old-Styled Note Paper
+		
+					br
+					
+					input(type="radio" name="theme" value="dark" id="darkRadioTheme" onclick="hideTextArea()")
+					label(for="darkRadioTheme") Generic Dark (boring!)
+	
+					br
+				
+				section#customTheme
+					input(type="radio" name="theme" value="custom" id="customRadioTheme" onclick="showTextArea()")
+					label(for="customRadioTheme") Custom Cascading Style
+					br
+					div(id="textareaCustomCSS")
+						p For tips on custom CSS, 
+							a(href="/css_tips.html") click here.
+						label(for="customCSSArea")
+						textarea(cols="100" rows="30" id="customCSSArea" placeholder="CSS goes here...")
+	
+				hr
+					
+				h3(class="center") Chat
+				
+				h4 Markdown
+				
+				input(type="checkbox" name="markdownMD" value="use" id="checkboxMarkdown" checked)
+				label(for="checkboxMarkdown") Render Markdown In Global Chat
+				p If disabled, your messages will not render markdown in the GC. Markdown is not supported in private messages.
+	
+				hr
+	
+				p(class="center")
+					button(type="submit") Save Preferences

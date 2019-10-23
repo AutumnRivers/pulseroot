@@ -1,0 +1,75 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='/default.css')
+		title 403 Forbidden
+		script(src='/functions.js' type='text/javascript')
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+	body
+		ul.navbar
+		
+			li.mobileNavOpen
+				a(onclick='showMobileNav()') PulseRoot
+
+			li.logotitle
+
+				a(href='/index.html') PulseRoot
+
+			li.gc
+
+				a(href='/gc') Global Chat
+
+			li.dropdown
+
+				a.dropbtn(href='javascript:void(0)') Info
+
+				.dropdown-content
+					a(href='/contact.html') Contact Me
+					a(href='/privacy.html') Privacy Policy
+					a(href='/tac.html') Terms & Conditions
+					
+			li.dropdown.account
+					if(userinfo)
+						a.dropbtn(href='javascript:void(0)') #{userinfo.username}
+						.dropdown-content
+							a(href='/profile') View Profile
+							a(href='/logout') Logout
+					if(!userinfo)
+						a(href='/login') Login &amp; Signup
+						
+		<!-- Navbar for mobile users -->
+		div.mobileNavMenu#mobileMenu
+			a(class="closeNavBtn" onclick="closeMobileNav()") &times;
+			div.mobileNavItems
+				a(href='javascript:void(0)' style="font-size: 30px; color: darkgreen;")
+					b PulseRoot
+				a(href='javascript:void(0)') &nbsp;
+				a(href='/index.html') Home
+				a(href='/gc') Global Chat
+				a(href='/info.html') Legal/Tech Info
+				if(user)
+					a(href='/profile') #{user.username}'s Profile
+					a(href='/logout') Logout
+				else
+					a(href='/login') Login &amp; Signup
+
+		main
+			h1 403 - Forbidden
+			h2 NO DON'T TOUCH THAT
+			p.center
+				img(src="/banner_transparent.png" alt="PulseRoot" width="561px" height="300px" class="banner no-round")
+				
+			hr
+			
+			h3 What happened?
+			p You tried entering a page you're not allowed to go to. i.e. The admin dashboard.
+			
+			h3 Can I fix this?
+			p What? No. This isn't a problem with your browser.
+			
+			h3 Is it because I'm using Internet Explorer?
+			p ...well for one, stop using IE. Secondly, no. This isn't a problem with your browser.
+			
+			h3 What pages can I go to?
+			p
+				i Anything but the admin stuff.

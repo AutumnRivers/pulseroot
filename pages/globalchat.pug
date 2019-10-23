@@ -3,8 +3,8 @@ doctype html
 head
 
 	style.
-
-		@import url("../chat.css");
+	
+		body: { padding: 10px; }
 
 	script(src='/socket.io/socket.io.js')
 
@@ -19,9 +19,14 @@ head
 		$('form').submit(function(){
 
 		var usr = '#{username}'
+
+		if(!usr) var usr = ''
+
 		var dis = '#{display}'
 		var nc = '#{namecolor}'
 		socket.emit('chat message', $('#m').val(), usr, dis, nc);
+
+		console.log("Submitted");
 
 		$('#m').val('');
 
@@ -31,25 +36,19 @@ head
 
 		socket.on('chat message', function(data){
 		console.log(data);
+		if(data.username) var username = data.username
 		if(data.username)
-		var username = data.username
-		if(!namecolor)
-		var namecolor = '#ffffff'
-		//$('#messages').append($('<li>').text(msg));
-		if(data.username)
-			$('#messages').append($('<li><span style="font-weight: bold; color: #{namecolor}"><a href="/profile/#{username}" class="display" style="padding: 0; margin: 0">' + data.display + '</a></span><span class="timestamp">' + data.date + '</span><br/><span style="color:' + data.color + '">' + data.msg + '</span></li>'));
+			$('#messages').append($('<li><span style="font-weight: bold; color: ' + data.namecolor + '"><a href="/profile/' + data.username + '" class="display" style="padding: 0; margin: 0">' + data.display + '</a></span><span class="timestamp">' + data.date + '</span><span style="color:' + data.color + ';" class="msg">&nbsp;&nbsp;&nbsp;&nbsp;' + data.msg + '</span></li>'));
 		else
-			$('#messages').append($('<li><span style="font-weight: bold">' + data.display + '</span><span class="timestamp">' + data.date + '</span><br/><span style="color:' + data.color + '">' + data.msg + '</span></li>'));
+			$('#messages').append($('<li><span style="font-weight: bold">' + data.display + '</span><span class="timestamp">' + data.date + '</span><span style="color:' + data.color + '" class="msg">&nbsp;&nbsp;&nbsp;&nbsp;' + data.msg + '</span></li>'));
 		var div = document.getElementById("chat");
 		div.scrollTop = div.scrollHeight;
 		});
 		});
 	title PulseRoot - Global Chat
 
-	link(rel='stylesheet' type='text/css' href='../default.css')
-	meta(property='og:title' content='PulseRoot Global Chat')
-	meta(property='og:description' content='The global chat room for PulseRoot')
-	meta(name='theme-color' content='#006d3f')
+	link(rel='stylesheet' type='text/css' href='/default.css')
+	link(rel='stylesheet' type='text/css' href='/chat.css')
 	meta(name='viewport' content='width=device-width initial-scale=1.0')
 
 body

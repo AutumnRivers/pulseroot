@@ -1,0 +1,245 @@
+doctype html
+
+html
+	head
+
+		script(src='/socket.io/socket.io.js')
+		script(src='/functions.js' type='text/javascript')
+
+		script.
+
+			var socket = io();
+
+			function disableInput(inputid) {
+				document.getElementById(inputid).disabled = true;
+				document.getElementById(inputid).required = false;
+			}
+
+			function enableInput(inputid) {
+				document.getElementById(inputid).disabled = false;
+				document.getElementById(inputid).required = true;
+			}
+
+			function confirmDelete(formid) {
+				const form = document.getElementById(formid)
+				const confirmation = confirm("I agree I have read the Rules of Administration and take full responsibility for the deletion of this user.")
+				if(confirmation === true) {	
+					form.submit();
+				}
+			}
+			
+		style.
+		
+			h5 {
+				color: red;
+			}
+		title PulseRoot Administrator Dashboard
+
+		link(rel='stylesheet', type='text/css', href='/default.css')
+		
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+
+	body
+
+		nav
+			ul.navbar
+			
+				li.mobileNavOpen
+					a(onclick='showMobileNav()') PulseRoot
+	
+				li.logotitle
+	
+					a(href='/') PulseRoot
+	
+				li.gc
+	
+					a(href='/gc') Global Chat
+	
+				li.dropdown
+	
+					a.dropbtn(href='javascript:void(0)') Info
+	
+					.dropdown-content
+	
+						a(href='/contact.html') Contact Me
+						a(href='/privacy.html') Privacy Policy
+	
+						a(href='/tac.html') Terms & Conditions
+	
+				li.dropdown.account
+					if(userinfo)
+						a.dropbtn(href='javascript:void(0)') #{userinfo.username}
+						.dropdown-content
+							a(href='/profile') View Profile
+							a(href='/preferences') Preferences
+							a(href='/logout') Logout
+					if(!userinfo)
+						a(href='/login') Login &amp; Signup
+						
+		<!-- Navbar for mobile users -->
+		div.mobileNavMenu#mobileMenu
+			a(class="closeNavBtn" onclick="closeMobileNav()") &times;
+			div.mobileNavItems
+				a(style="font-size: 30px; color: darkgreen;")
+					b PulseRoot
+				a(href='javascript:void(0)') &nbsp;
+				a(href='/index.html') Home
+				a(href='/gc') Global Chat
+				a(href='/info.html') Legal/Tech Info
+				if(user)
+					a(href='/profile') #{user.username}'s Profile
+					a(href='/preferences') Preferences
+					a(href='/logout') Logout
+					a &nbsp;
+				else
+					a(href='/login') Login &amp; Signup
+					a &nbsp;
+						
+		main
+			h1 Administrator Dashboard
+			h2 Do shit here
+			hr
+	
+			h3 Logged in as #{userinfo.username}
+			h4 Level: 
+				if(userinfo.level === 'dev')
+					span(style="color:blue;") Developer
+				else if(userinfo.level === 'admin')
+					span(style="color:lime;") Administrator
+				else
+					span(style="color:white;") User (Unauthorized) <!-- Failsafe -->
+	
+			hr
+	
+			if(success)
+				h4(style="text-align:center; color:lime;") #{success}
+				
+			h3 Administration
+				h4 Banning
+				if(errMsgBan)
+					h5 #{errMsgBan}
+				form(action='/admin/ban' method='POST')
+					input(type='text' name='username' required placeholder='Username')
+					label.container IP Ban
+						input(type='checkbox' name='ipban' value='ipban')
+						span.checkmark
+					button(type="sumbit" style="display:block;") Ban User
+	
+				h4 User Restrictions
+				if(errMsgRst)
+					h5 #{errMsgRst}
+				form(action='/admin/restrict' method='POST')
+					input(type='text' name='username' required placeholder='Username')
+					br
+					input(type='checkbox' name='markdown' value='allow' checked)
+					| Allow Markdown
+					br
+					input(type='checkbox' name='commands' value='allow' checked)
+					| Allow usage of commands
+					br
+					input(type='checkbox' name='twitter' value='disable')
+					| Disable Twitter Integration
+					br
+					input(type='checkbox' name='avatar' value='disable')
+					| Disable Avatar Changing
+					br
+					button(type="submit" style="display:block;") Save
+				
+				h2(id='stng') User Settings
+				if(errMsgStng)
+					h5 #{errMsgStng}
+				h3 User Avatar
+				form(action='/admin/user/avatar' method='POST')
+					input(type='text' name='username' required placeholder='Username')
+					br
+					br
+					input(onclick="disableInput('avurl')" type='radio' name='avatar' value='default' checked)
+					| Use Default Avatar
+					br
+					input(onclick="enableInput('avurl')" type='radio' name='avatar' value='custom')
+					| Set Custom Avatar
+					br
+					br
+					input(type='text' id='avurl' name='avurl'  required placeholder='Direct Image URL' disabled)
+					button(type='submit' style='display:block;') Set Avatar
+	
+				h3 Profile Settings
+				form(action='/admin/user/profile' method='POST')
+					input(type='text' name='username' required placeholder='Username')
+					h4 Display Name
+					input(type='text' name='display' placeholder='Display Name')
+					h4 Description
+					input(type='text' name='desc' placeholder='Hello! This is a profile description!')
+					br
+					br
+					input(type='checkbox' name='integrations' value='delete')
+					| Delete All Integrations
+					br
+					button(type='submit') Save
+	
+				h3(style="color:red;") Delete User
+				p Never EVER use this unless you  
+					b ABSOLUTELY 
+					| have to. Remember to look over the 
+					a(href='/admin/rules') Rules of Administration
+				form(action='/admin/user/delete' method='POST' id='deleteuser')
+					input(type='text' name='username' required placeholder='Username')
+					button(type='button' onclick="confirmDelete('deleteuser')") Delete
+	
+				if(userinfo.level === 'dev' || userinfo.username === 'Smartie')
+					hr
+					h2 Developer Options
+					form(action='/dev/database' method='POST')
+						h3 Database Options
+						input(type='radio' name='addfield' value='yes' checked)
+						| Add SQLite Field
+						br
+						input(type='radio' name='removefield' value='yes')
+						| Remove SQLite Field
+						br
+						br
+						input(type='text' id='sqlfield' name='field' placeholder='discordTag, googleUser, etc' required)
+						br
+						br
+						button(type='submit' style="display:block") Save Options
+	
+					form(action='/dev/database/wipe' method='POST')
+						h3 Database Data Wipe
+						input(type='checkbox' name='wipedb' value='wipe')
+						| Wipe Main Database
+						br
+						input(type='checkbox' name='wipedb' value='session')
+						| Wipe Sessions Database
+						br
+						button(type='submit' style="display:block") Save
+	
+					form(action='/dev/user/status' method='POST')
+						h3 Update User Status
+						input(type='text' name='username' required placeholder='Username')
+						br
+						br
+						select(required name='status')
+							option(value='user') User
+							option(value='admin') Administrator
+							option(value='dev') Developer
+							option(value='verified') Verified
+						button(type='submit' style="display:block") Save
+			footer
+	
+				ul.foot
+	
+					li
+	
+						a(href='./privacy.html') Privacy Policy
+	
+						|  |
+	
+					li
+	
+						a(href='./tac.html') Terms & Conditions
+	
+						|  |
+	
+					li
+	
+						a(href='./info.html') Full Info

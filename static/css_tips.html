@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PulseRoot Custom CSS Tips</title>
+		<link rel="stylesheet" type="text/css" href="/default.css"/>
+		<script src="/functions.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width initial-scale=1.0"/>
+		<style>
+			h4 {
+				font-weight: bold;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav>
+			<ul class="navbar">
+				<li class="mobileNavOpen"><a onclick='showMobileNav();'>PulseRoot</a></li>
+				<li class="logotitle"><a href="/index.html">PulseRoot</a></li>
+				<li class="gc"><a href="/gc">Global Chat</a></li>
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="dropbtn">Info</a>
+						<div class="dropdown-content">
+							<a href="/contact.html">Contact Me</a>
+							<a href="/privacy.html">Privacy Policy</a>
+							<a href="/tac.html">Terms &amp; Conditions</a>
+						</div>
+				</li>
+			</ul>
+		</nav>
+		
+		<!-- Navbar for mobile users -->
+		<div class="mobileNavMenu" id="mobileMenu">
+			<a href="javascript:void(0)" class="closeNavBtn" onclick="closeMobileNav();">&times;</a>
+			<div class="mobileNavItems">
+				<a href="javascript:void(0)" style="font-size: 30px; color: darkgreen;"><b>PulseRoot</b></a>
+				<a href="javascript:void(0)">&nbsp;</a> <!-- Seperator -->
+				<a href="/">Home</a>
+				<a href="/gc">Global Chat</a>
+				<a href="/info.html">Legal/Tech Info</a>
+			</div>
+		</div>
+
+		<main>
+			<h1>PulseRoot Custom CSS</h1>
+			<h2>Easy As 1,2,3!</h2>
+			
+			<hr/>
+			
+			<h3>So you want to make a custom theme.</h3>
+			<p>Make sure to take care of every thing then.</p>
+			
+			<ol style="list-style-type: disc">
+				<li><a href="#banner">Banner</a></li>
+				<li><a href="#main-css">Main CSS</a>
+					<ol style="list-style-type: circle">
+						<li><a href="#main-css-bg">Background</a></li>
+						<li><a href="#main-css-nav">Navbar Basics</a></li>
+						<li><a href="#main-css-links">Links</a></li>
+						<li><a href="#main-css-input">Input/Buttons</a></li>
+					</ol>
+				</li>
+				<li><a href="#chat-css">Chat CSS</a></li>
+				<li><a href="#additional">Additional/Optional CSS</a></li>
+			</ol>
+			
+			<hr/>
+			
+			<h3>Banner</h3>
+			<p>The banner requires a url. The recommended image size is 561x300, but it can be whatever you'd like. You <i>must</i> host the image on one of the accepted image hosts in order to comply with the <abbr title="Content Security Policy">CSP</abbr>.</p>
+			<h4>Accepted Image Hosts/CDNs</h4>
+			<ol style="list-style-type: disc">
+				<li><a href="https://discordapp.com/" target="_blank">Discord</a></li>
+				<li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+				<li><a href="https://cloudflare.com/" target="_blank">Cloudflare CDN</a></li>
+				<li><a href="https://neet.host/" target="_blank">neet.host</a></li>
+			</ol>
+			
+			<hr/>
+			
+			<h3 id="main-css">Main CSS</h3>
+			<p>This is the most important. You'll see this everywhere and it defines your experience.</p>
+			
+			<h4 id="main-css-bg">Background</h4>
+			<p>Background is the same throughout every page of PulseRoot, making it the most prominent of all. You define this with the <span class="define">body</span> element.</p>
+			<pre><p>body {
+	background-color: (Hex, RGB, RGBA, etc)
+}</p></pre>
+			
+			<h4 id="main-css-nav">Navbar Basics</h4>
+			<p>The navbar is arguably the most complex to work with in terms of Main CSS. There are three parts to the navbar: The main color, the dropdown color, and the hover color. <b>This part of the tutorial will not walk you through the mobile navbar.</b></p>
+<pre>ul.navbar {
+	background-color: CSS Color; /* The main color of the navbar */
+	color: CSS Color; /* Optional - Change the color of the navbar text, defaults to white */
+}
+
+.navbar li a:hover, .dropdown:hover .dropbtn {
+	background-color: CSS Color; /* Hover coloring, usually best to do rgba(xxx,xxx,xxx,0.05) */
+}
+
+.dropdown-content {
+	background-color: CSS Color; /* Background color of the Info/Account dropdown items */
+}</pre>
+
+			<h4 id="main-css-links">Links</h4>
+			<p>Links are incredibly easy, but I felt it unnecessary to group them with something else.</p>
+<pre>a {
+	color: CSS Color; /* Change the color links */
+}</pre>
+
+			<h4 id="main-css-input">Input/Buttons</h4>
+			<p>You'll see these scattered from place to place.</p>
+<pre>input, button, textarea {
+	background-color: CSS Color; /* Change the background color */
+	color: CSS Color; /* Change the text color, best for matching the background */
+	border: ?px solid color; /* Border styling - best to keep solid */
+}</pre>
+
+			<hr/>
+			
+			<h3 id="chat-css">Chat CSS</h3>
+			<p>This is for the <a href="/gc">Global Chat</a> and private messaging.</p>
+			
+			<h4>Messages</h4>
+			<p>This is what messages look like.</p>
+<pre>#messages li {
+	background-color: CSS Color; /* The background color of first/odd messages */
+}
+
+#messages li:nth-child(even) {
+	background-color: CSS Color; /* Background of second/even messages */
+}</pre>
+
+			<hr/>
+			
+			<h4 id="additional">Additional/Optional CSS</h4>
+			<p>There is a lot of additional css you may wish to use to enhance your experience and keep your fitting theme, or even add on to it. You can do a lot more than this, but these are just some examples. If you like looking at the source, take a look at the <a href="/default.css">default.css</a> and <a href="/chat.css">chat.css</a>.</p>
+			
+<pre>.display {
+	color: CSS Color; /* This will change the color of display names in chat. If left blank, it will use user name colors. */
+}
+
+.msg {
+	color: CSS Color; /* This will change the color of text in chat messages. Gets overrided by !!color command */
+}
+
+::selection, ::-moz-selection {
+	/* ::selection is when you click and drag on text. It makes it look fancy! Ooh! */
+	background: CSS Color; /* Background color */
+	color: CSS Color; /* Text color */
+}
+
+hr {
+	border-color: CSS Color; /* Changes the color of the &lt;hr/&gt; tags */
+}
+
+img {
+	border-radius: 0; /* This will remove rounding on images, including profile pictures */
+}
+
+.logotitle {
+	/* This changes what the word PulseRoot looks like in navbars */
+	font-weight: bolder; /* It's best to keep this as bold, but you may find use */
+	color: CSS Color; /* Text color */
+}
+
+pre {
+	/* This changes what code blocks look like. In fact, you're looking at a code block right now! */
+	font-family: "Ubuntu Mono", "Consolas", monospace; /* Change the font, best to use a monospaced font */
+}</pre>
+
+			<hr/>
+			
+			<footer>
+				<ul class="foot">
+					<li><a href="./privacy.html">Privacy Policy</a> |</li>
+					<li><a href="./tac.html">Terms &amp; Conditions</a> |</li>
+					<li><a href="./info.html">Full Info</a></li>
+				</ul>
+			</footer>
+		</main>
+	</body>
+
+</html>

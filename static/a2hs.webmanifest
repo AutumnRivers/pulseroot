@@ -1,0 +1,15 @@
+{
+	"background-color":"#152b16",
+	"description":"A fast, secure, and reliable web chat for the modern web",
+	"display":"fullscreen",
+	"icons":[
+		{
+			"src":"/a2hs_icons/main.png",
+			"sizes":"256x256",
+			"type":"image/png"
+		}
+	],
+	"name":"PulseRoot",
+	"short_name":"PulseRoot",
+	"start_url":"/"
+}

@@ -3,41 +3,60 @@ html
 	head
 		link(rel='stylesheet', type='text/css', href='../default.css')
 		title PulseRoot Login
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+		script(src='/functions.js' type='text/javascript')
 	body
-		ul.navbar
-
-			li.logotitle
-
-				a(href='/index.html') PulseRoot
-
-			li
-
+		nav
+			ul.navbar
+			
+				li.mobileNavOpen
+					a(onclick='showMobileNav()') PulseRoot
+	
+				li.logotitle
+	
+					a(href='/index.html') PulseRoot
+	
+				li.gc
+	
+					a(href='/gc') Global Chat
+	
+				li.dropdown
+	
+					a.dropbtn(href='javascript:void(0)') Info
+	
+					.dropdown-content
+						a(href='/contact.html') Contact Me
+						a(href='/privacy.html') Privacy Policy
+						a(href='/tac.html') Terms & Conditions
+						
+		<!-- Navbar for mobile users -->
+		div.mobileNavMenu#mobileMenu
+			a(href="javascript:void(0)" class="closeNavBtn" onclick="closeMobileNav()") &times;
+			div.mobileNavItems
+				a(href='javascript:void(0)' style="font-size: 30px; color: darkgreen;")
+					b PulseRoot
+				a(href='javascript:void(0)') &nbsp;
+				a(href='/index.html') Home
 				a(href='/gc') Global Chat
+				a(href='/info.html') Legal/Tech Info
 
-			li.dropdown
-
-				a.dropbtn(href='javascript:void(0)') Info
-
-				.dropdown-content
-					a(href='/contact.html') Contact Me
-					a(href='/privacy.html') Privacy Policy
-					a(href='/tac.html') Terms & Conditions
-
-		h1 PulseRoot Login
-		h2 Login to PulseRoot, no witty remark here.
-
-		hr
-		if(message)
-			h4
-			span(style="color:red") #{message}
-		div.rightInfo
-			h3 Don't have an account?
-			p Easy, 
-				a(href="./signup") sign up for one.
-
-		form(action="/login" method="POST")
-			h3 Username*
-			input(name="username" required type="text" placeholder="Username")
-			h3 Password*
-			input(name="password" required type="password" placeholder="Password")
-			button(type="Submit" style="width:100px; display:block") Login
+		main
+			h1 PulseRoot Login
+			h2 Login to PulseRoot, no witty remark here.
+	
+			hr
+			if(message)
+				h4
+				span(style="color:red") #{message}
+			div.rightInfo
+				h3 Don't have an account?
+				p Easy, 
+					a(href="./signup") sign up for one.
+				hr.horizRuleMobile
+	
+			form(action="/login" method="POST")
+				h3 Username*
+				input(name="username" required type="text" placeholder="Username")
+				h3 Password*
+				input(name="password" required type="password" placeholder="Password")
+				button(type="Submit" style="width:100px; display:block") Login

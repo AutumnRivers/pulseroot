@@ -1,61 +1,117 @@
 doctype html
 html
 	head
-		link(rel='stylesheet', type='text/css', href='../default.css')
+		link(rel='stylesheet', type='text/css', href='/default.css')
 		title #{userinfo.username}'s Profile
-	body
-		ul.navbar
-
-			li.logotitle
-
-				a(href='/') PulseRoot
-
-			li
-
-				a(href='/gc') Global Chat
-
-			li.dropdown
-
-				a.dropbtn(href='javascript:void(0)') Info
-
-				.dropdown-content
-					a(href='/contact.html') Contact Me
-					a(href='/privacy.html') Privacy Policy
-					a(href='/tac.html') Terms & Conditions
-		p.center
-			if(!userinfo.avatar)
-				img(src='/defaultAvatar.jpg' alt=`${userinfo.username}'s Avatar` height='200px' width=auto)
-			if(userinfo.avatar)
-				img(src=userinfo.avatar alt=`${userinfo.username}'s Avatar` height='200px' width=auto)
-		h1(style=`color:${namecolor}`)
-			| #{userinfo.display}&nbsp;
-			if(userinfo.level === 'dev')
-				i(class='fab fa-node-js' title='PulseRoot Developer')
-			else if(userinfo.level === 'admin')
-				i(class='fas fa-cogs' title='PulseRoot Administrator')
-			else
-				i(class='far fa-user' title='User')
-		h3.center #{userinfo.username}
-		if(user === userinfo.username)
-			p.center
-				a(href="/profile/settings")
-					button(type="button") Update Profile Settings
-
-		hr
-
-		h3 Description
-		if(!userinfo.description)
-			p
-				i Hello! I don't have a description yet.
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+		meta(property="og:title" content=userinfo.username + "'s Profile | PulseRoot")
+		meta(property="og:description" content=userinfo.description)
+		meta(name="theme-color" content=userinfo.namecolor)
+		if(userinfo.avatar)
+			meta(property="og:image" content=userinfo.avatar)
 		else
-			p #{userinfo.description}
-
-		h3 Integrations
-		if(!discordInfo && !twitterInfo)
-			p(title="No Integrations Connected") This person doesn't seem to have much of a social life.
-		if(discordInfo)
-			h4 Discord
-			p #{discordInfo}
-		if(twitterInfo)
-			h4 Twitter
-			p &commat;#{twitterInfo}
+			meta(property="og:image" content="/defaultAvatar.jpg")
+		script(src='/functions.js' type='text/javascript')
+		
+		style.
+		
+			img {
+				width: 250px;
+				height: 250px;
+			}
+	body
+		nav
+			ul.navbar
+			
+				li.mobileNavOpen
+					a(onclick='showMobileNav()') PulseRoot
+	
+				li.logotitle
+	
+					a(href='/') PulseRoot
+	
+				li.gc
+	
+					a(href='/gc') Global Chat
+	
+				li.dropdown
+	
+					a.dropbtn(href='javascript:void(0)') Info
+	
+					.dropdown-content
+						a(href='/contact.html') Contact Me
+						a(href='/privacy.html') Privacy Policy
+						a(href='/tac.html') Terms & Conditions
+						
+				li.dropdown.account
+					if(user)
+						a.dropbtn(href='javascript:void(0)') #{user.username}
+						.dropdown-content
+							a(href='/profile') View Profile
+							a(href='/logout') Logout
+					if(!user)
+						a(href='/login') Login and Signup
+						
+		<!-- Navbar for mobile users -->
+		div.mobileNavMenu#mobileMenu
+			a(href="javascript:void(0)" class="closeNavBtn" onclick="closeMobileNav()") &times;
+			div.mobileNavItems
+				a(href='javascript:void(0)' style="font-size: 30px; color: darkgreen;")
+					b PulseRoot
+				a(href='javascript:void(0)') &nbsp;
+				a(href='/index.html') Home
+				a(href='/gc') Global Chat
+				a(href='/info.html') Legal/Tech Info
+				if(user)
+					a(href='/profile') #{user.username}'s Profile
+					a(href='/logout') Logout
+				else
+					a(href='/login') Login &amp; Signup
+				
+		main
+			p.center
+				if(!userinfo.avatar)
+					img(src='/defaultAvatar.jpg' alt=`${userinfo.username}'s Avatar` height='200px' width=auto class="avatar")
+				if(userinfo.avatar)
+					img(src=userinfo.avatar alt=`${userinfo.username}'s Avatar` height='200px' width=auto class="avatar")
+			h1(style=`color:${namecolor}`)
+				| #{userinfo.display}&nbsp;
+				if(userinfo.level === 'dev')
+					i(class='fab fa-node-js' title='PulseRoot Developer')
+				else if(userinfo.level === 'admin')
+					i(class='fas fa-cogs' title='PulseRoot Administrator')
+				else
+					i(class='far fa-user' title='User')
+			h3.center #{userinfo.username}
+			if(user)
+				if(user.username === userinfo.username)
+					p.center
+						a(href="/profile/settings")
+							button(type="button") Update Profile Settings
+				else
+					p.center
+						a(href="/messaging/" + userinfo.username)
+							button(type="button") Send A Private Message
+			else
+				p.center
+					a(href="/login") Login to PulseRoot
+					|  to send #{userinfo.display} a private message!
+	
+			hr
+	
+			h3 Description
+			if(!userinfo.description)
+				p
+					i Hello! I don't have a description yet.
+			else
+				p #{userinfo.description}
+	
+			h3 Integrations
+			if(!discordInfo && !twitterInfo)
+				p(title="No Integrations Connected") This person doesn't seem to have much of a social life.
+			if(discordInfo)
+				h4 Discord
+				p #{discordInfo}
+			if(twitterInfo)
+				h4 Twitter
+				p &commat;#{twitterInfo}

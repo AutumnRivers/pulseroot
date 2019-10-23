@@ -1,0 +1,73 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='/default.css')
+		title PulseRoot Coffee Machine
+		script(src='/functions.js' type='text/javascript')
+	body
+		nav
+			ul.navbar
+			
+				li.mobileNavOpen
+					a(onclick='showMobileNav()') PulseRoot
+	
+				li.logotitle
+	
+					a(href='/index.html') PulseRoot
+	
+				li
+	
+					a(href='/gc') Global Chat
+	
+				li.dropdown
+	
+					a.dropbtn(href='javascript:void(0)') Info
+	
+					.dropdown-content
+						a(href='/contact.html') Contact Me
+						a(href='/privacy.html') Privacy Policy
+						a(href='/tac.html') Terms & Conditions
+						
+				li.dropdown.account
+					if(userinfo)
+						a.dropbtn(href='javascript:void(0)') #{user.username}
+						.dropdown-content
+							a(href='/profile') View Profile
+							a(href='/logout') Logout
+					if(!userinfo)
+						a(href='/login') Login &amp; Signup
+
+		main
+			h1 PulseRoot Coffee Machine
+			h2 Stir it up.
+			
+			hr
+			
+			if(userinfo.level === 'admin' || userinfo.level === 'dev')
+				if(coffee === 'made')
+					h2 The coffee pot is ready!
+					p It seems some nice users made some coffee while you were gone! How nice!
+					p Now kick back, and enjoy and ol' cup of joe.
+					
+					form(action="/admin/coffee/drink" method="POST")
+						input(type="checkbox" name="coffee" value="drink" hidden)
+						button(type="submit") Drink Coffee
+				else
+					h2 The coffee pot is empty.
+					p This machine is special, high-level users and guests can't use it. Request a user to make you some coffee. Maybe request it in the global chat?
+					
+			else
+				if(coffee === 'made')
+					h2 The coffee has already been made.
+					p You don't need to do anything here. And no, you can't have any.
+					p Instead, stop by the
+						a(href="/soda") soda fountain.
+					p This machine will reset when someone from the staff drinks it... Or 24 hours after it was made, since it'd be cold by then, and who likes cold coffee? I sure don't, ew!
+					
+				else
+					h2 A coffee machine stands in front of you.
+					p Working at PulseRoot is hard! You can help the administration team and thank them by making a cup of steaming coffee. In addition to feeling good about yourself, you'll also unlock one of three themes - "Mocha", "Expresso.js", or "Java". Keep coming back and making more to get all three!
+					
+					form(action="/coffee/make" method="POST")
+						input(type="checkbox" name="coffee" value="make" hidden)
+						button(type="submit") Make Coffee

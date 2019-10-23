@@ -1,0 +1,30 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='/default.css')
+		link(rel='icon' type='image/x-icon' href='/favicon.ico')
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+		script(src='/functions.js')
+		title PulseRoot
+	body
+		main
+			h1 Two-Factor Authentication
+			h2 Do you hold the key to greatness?
+			hr
+			if(message)
+				h2(style="color:red;") #{message}
+			form.center(action="/2fa" method="POST")
+				label(for="tokenInput") 2FA Token
+				br
+				input(type="number" name="token" id="tokenInput" placeholder="XXXXXX" required)
+				input(type="hidden" name="username" value=username)
+				br
+				button(type="submit") Submit
+			h3 What is this?
+			p You (assuming you're you!) enabled two-factor authentication on your account.
+			h3 Where do I get the token?
+			p Whatever you set up 2FA with! Authy, Google Authenticator, whatever. What matters is you get that token.
+			h3 I no longer have access to [AUTHENTICATOR APP]
+			p If you connected your Discord, you can contact me on Discord with that account. My tag is Smartie#5434. If you didn't connect your Discord, then sorry.
+			h3 You sure talk about Discord a lot.
+			p What can I say? I like it.

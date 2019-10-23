@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PulseRoot</title>
+		<link rel="stylesheet" type="text/css" href="./default.css"/>
+		<meta name="viewport" content="width=device-width initial-scale=1.0"/>
+		<script src="/functions.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<nav>
+			<ul class="navbar">
+				<li class="mobileNavOpen"><a onclick='showMobileNav();'>PulseRoot</a></li>
+				<li class="logotitle"><a href="./index.html">PulseRoot</a></li>
+				<li class="gc"><a href="/gc">Global Chat</a></li>
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="dropbtn">Info</a>
+						<div class="dropdown-content">
+							<a href="./contact.html">Contact Me</a>
+							<a href="./privacy.html">Privacy Policy</a>
+							<a href="./tac.html">Terms &amp; Conditions</a>
+						</div>
+				</li>
+			</ul>
+		</nav>
+		
+		<!-- Navbar for mobile users -->
+		<div class="mobileNavMenu" id="mobileMenu">
+			<a href="javascript:void(0)" class="closeNavBtn" onclick="closeMobileNav();">&times;</a>
+			<div class="mobileNavItems">
+				<a href="javascript:void(0)" style="font-size: 30px; color: darkgreen;"><b>PulseRoot</b></a>
+				<a href="javascript:void(0)">&nbsp;</a> <!-- Seperator -->
+				<a href="/">Home</a>
+				<a href="/gc">Global Chat</a>
+				<a href="/info.html">Legal/Tech Info</a>
+			</div>
+		</div>
+
+		<main>
+			<h1>PulseRoot Verification</h1>
+			<h2>Let people know you're the real deal.</h2>
+	
+			<hr />
+	
+			<h3>What's this?</h3>
+			<p>A verification program. If you're a content creator, a community manager, or whatever, we welcome you to PulseRoot! You probably want your fans to know you're the real thing, right? Well we do that pretty simply: a badge on your profile. For example, <a href="/profile/Smartie">I have a developer badge</a>. You'll get a fancy verification badge. Ooh!</p>
+			
+			<h3>What are the requirements?</h3>
+			<p>Well, we need to know you're the real person, obviously. So you need:</p>
+			<ol>
+				<li>Some sort of reputation</li>
+				<li>Proof - a simple third-party connection will do.</li>
+				<li>A PulseRoot account, obviously.</li>
+				<li>A Discord; this is essential so we have an easy way of contacting you.</li>
+				<li>If you're known for making web applications, your code needs to be open-sourced.</li>
+			</ol>
+			
+			<div style="overflow-x: auto; margin: 0 auto;" class="verifyDiv">
+				<fieldset style="border: 2px solid rgba(0,255,0,0.4); border-radius: 15px;">
+					<legend style="color:lime;">Verification Application</legend>
+					<form action="/send/verification" method="POST" class="field">
+						<p><b>Your Name</b></p>
+						<input type="text" name="realname" placeholder="John Doe"/>
+						<p><b>Online Name</b></p>
+						<input type="text" name="onlinename" placeholder="J4ne_Do3"/>
+						<br/>
+						<br/>
+						<p><b>I am a:</b></p>
+						<input type="checkbox" value="cc" name="iama[0]"> Content Creator</input><br/>
+						<input type="checkbox" value="art" name="iama[1]"> Artist</input><br/>
+						<input type="checkbox" value="community" name="iama[2]"> Community Manager</input><br/>
+						<input type="checkbox" value="other" name="iama[3]"> Other</input><br/>
+						<br/>
+						<p><b>I will use PulseRoot for...</b></p>
+						<textarea name="reason" placeholder="I am looking to verify on PulseRoot because..."></textarea>
+						<br/>
+						<hr/>
+						<br/>
+						<input type="checkbox" value="accept" name="final"> I accept the <a href="tac.html">Terms &amp; Conditions</a> of PulseRoot.</input>
+						<br/>
+						<br/>
+						<button type="submit">Submit Application</button>
+					</form>
+				</fieldset>
+			</div>
+			
+			<footer>
+				<ul class="foot">
+					<li><a href="./privacy.html">Privacy Policy</a> |</li>
+					<li><a href="./tac.html">Terms &amp; Conditions</a> |</li>
+					<li><a href="./info.html">Full Info</a></li>
+				</ul>
+			</footer>
+		</main>
+	</body>
+
+</html>

@@ -1,10 +1,9 @@
-# Important
-This repo is now only for my personal commits to PulseRoot - everything made here may or may not go into production. If you're interested in seeing the **most updated public code** then please visit the [new repo](https://www.github.com/diamondgrid/pulseroot-web).
-
 # PulseRoot
 ## Secure, fast, and reliable web chat application.
 
 ![](https://cdn.discordapp.com/attachments/509537742234058782/515007336864153623/unknown.png)
+
+----
 
 PulseRoot is a chat application that focuses on reliability, speed, and most of all... **security**.  
 It allows you to enter the global chat as either a guest, or gives you the ability to make an account.
@@ -14,12 +13,26 @@ With an account, you can:
 * Have your own profile
 * Integrate with other services (Twitter, Discord, Google, etc.)
 
+### Security
+PulseRoot values security. Here's some steps we've taken to ensure you get the best and most secure experience out of our website:
+
+#### End-To-End Encryption
+Yes, you heard that right! End-to-end encryption... for private messages, that is. Even the server can't see what you sent, it's just garbled text. Why end-to-end encryption when there's already HTTPS?
+* We know you don't want us looking in. That's why we can't see what you send.
+* HTTPS is not a silver bullet.
+
+#### IndexedDB Usage
+Yes, your messages are saved. But not on a server. In your *own browser*! IndexedDB is a client-side database. So, no, we still can't see your private messages.  
+[Read MDN for more info](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB).
+
+---
+
 ### Running your own PulseRoot
 Running your own version of PulseRoot is fairly easy.  
 That being said, there are steps you will have to take:
 
 #### Cloning and Installing
-Clone the repo: `git clone https://www.github.com/SmartieCodes/pulseroot` 
+Clone the repo: `git clone https://www.github.com/diamondgrid/pulseroot-web` 
 In the directory with `package.json`, run `npm install`.
 
 #### Setting up files and variables
@@ -35,7 +48,8 @@ In the directory with `package.json`, run `npm install`.
 
 #### Running
 In the root directory, run `npm start`.  
-In addition, you can use `localtunnel` to host your own server: `lt --port 8080`  
+In addition, you can use `localtunnel` to host your own server: `lt --port 8080`
+Or! If you're feeling fancy, install `npm-run-all` along with localtunnel, then run `npm run server`. It'll do both of those above things for you!  
 Congrats, you're now running your own version of PulseRoot!
 
 ### Socket.io

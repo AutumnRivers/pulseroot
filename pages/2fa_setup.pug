@@ -1,0 +1,111 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='/default.css')
+		link(rel='icon' type='image/x-icon' href='/favicon.ico')
+		script(src='/functions.js')
+		title PulseRoot 2FA Setup
+	body
+
+		nav
+			ul.navbar
+
+				li.logotitle
+
+					a(href='/index.html') PulseRoot
+
+				li.gc
+
+					a(href='/gc') Global Chat
+
+				li.dropdown
+
+					a.dropbtn(href='javascript:void(0)') Info
+
+					.dropdown-content
+						a(href='/contact.html') Contact Me
+						a(href='/privacy.html') Privacy Policy
+						a(href='/tac.html') Terms & Conditions
+						
+				li.dropdown.account
+						if(userinfo)
+							a.dropbtn(href='javascript:void(0)') #{userinfo.username}
+							.dropdown-content
+								a(href='/profile') View Profile
+								a(href='/preferences') Preferences
+								a(href='/logout') Logout
+						if(!userinfo)
+							a(href='/login') Login &amp; Signup
+							
+			<!-- Navbar for mobile users -->
+			div.mobileNavMenu#mobileMenu
+				a(class="closeNavBtn" onclick="closeMobileNav()") &times;
+				div.mobileNavItems
+					a(style="font-size: 30px; color: darkgreen;")
+						b PulseRoot
+					a &nbsp;
+					a(href='/index.html') Home
+					a(href='/gc') Global Chat
+					a(href='/info.html') Legal/Tech Info
+					if(user)
+						a(href='/profile') #{user.username}'s Profile
+						a(href='/preferences') Preferences
+						a(href='/logout') Logout
+						a &nbsp;
+					else
+						a(href='/login') Login &amp; Signup
+						a &nbsp;
+
+		main
+			h1 Two-Factor Authentication
+			h2 Scan it, lock it, put it in your pocket.
+
+			hr
+
+			if(message)
+				h1(style="color:red;") Error
+				h2 #{message}
+				hr
+
+			if(secret && secretImage)
+				div.center
+					h3 Setup
+					p Scan this QR Code with your authenticator app:
+					img(src=secretImage width="30%" height="30%" alt=secret class="no-round")
+					p Alternatively, you can enter this if QR Codes aren't your thing (It's okay, it'll understand.):
+					pre #{secret}
+					hr
+					h4 Enter the code given to you by your authenticator app.
+					form(action="/2fa/setup" method="POST")
+						input(type="number" max="999999" name="token" required)
+						br
+						label.container.centerCheck I am ABSOLUTELY sure I want to enable 2FA
+							input(type="hidden" name="secret" value=secret required)
+							input(type="checkbox" name="consent" value="yes" required)
+							span.checkmark
+						br
+						button(type="submit") Activate 2FA
+			else
+				if(!faEnabled)
+					h3 Two-Factor Authentication is 
+						span(style="color:red;") Disabled
+						| .
+					p That's dangerous! Two-Factor Authentication (2FA, as the cool kids call it) can really help with your account security. Now, I won't pressure to use it, but it'd be really nice if you did.
+					form(action="/2fa/setup" method="POST")
+						label.container Activate 2FA
+							input(type="checkbox" name="gen" value="please" required)
+							span.checkmark
+						button(type="submit") Continue
+				else
+					h3 Two-Factor Authentication is 
+						span(style="color:lime;") Enabled
+						| .
+					p That's good! You must care about the security of your account. We should be friends.
+					hr
+					h3 Disabling Two-Factor Authentication
+					p I'm sure you have a number of reasons for disbaling 2FA. I won't judge! Just remember, it really helps keep your account secure.
+					form(action="/2fa/disable" method="POST")
+						label.container Deactivate 2FA
+							input(type="checkbox" name="consent" value="yes" required)
+							span.checkmark
+						button(type="submit") Continue

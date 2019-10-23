@@ -3,45 +3,82 @@
 	<head>
 		<title>PulseRoot</title>
 		<link rel="stylesheet" type="text/css" href="./default.css"/>
+		<meta name="viewport" content="width=device-width initial-scale=1.0"/>
+		<script src="/functions.js" type="text/javascript"></script>
 	</head>
 
 	<body>
-		<ul class="navbar">
-			<li class="logotitle"><a href="./index.html">PulseRoot</a></li>
-			<li><a href="/gc">Global Chat</a></li>
-			<li class="dropdown">
-				<a href="javascript:void(0)" class="dropbtn">Info</a>
-					<div class="dropdown-content">
-						<a href="./contact.html">Contact Me</a>
-						<a href="./privacy.html">Privacy Policy</a>
-						<a href="./tac.html">Terms &amp; Conditions</a>
-					</div>
-			</li>
-		</ul>
-
-		<h1>Contact The Dev</h1>
-		<h2>Whose code is it, anyway!?</h2>
-
-		<hr />
-
-		<h3>Developer - <i>Smartie</i></h3>
-		<h4>Contact Info</h4>
-		<p>For the quickest results, contact me on Discord: <b>Smartie#5434</b></p>
-		<h4>Additional Contact Methods</h4>
-		<p><a href="mailto:smarti3plays@gmail.com">Business Email</a> <i class="far fa-envelope"></i></p>
-		<p><a href="https://www.github.com/SmartieCodes/" target="blank_">GitHub</a> <i class="fab fa-github"></i></p>
-		<p><a href="https://www.twitter.com/SmartiePlays_/" target="blank_">Twitter</a> <i class="fab fa-twitter"></i></p>
-
-		<h3>Bug Reports</h3>
-		<p>Please send any bug reports to the <a href="https://www.github.com/SmartieCodes/pulseroot/issues/">GitHub repo</a>.</p>
-		
-		<footer>
-			<ul class="foot">
-				<li><a href="./privacy.html">Privacy Policy</a> |</li>
-				<li><a href="./tac.html">Terms &amp; Conditions</a> |</li>
-				<li><a href="./info.html">Full Info</a></li>
+		<nav>
+			<ul class="navbar">
+				<li class="mobileNavOpen"><a onclick='showMobileNav();'>PulseRoot</a></li>
+				<li class="logotitle"><a href="./index.html">PulseRoot</a></li>
+				<li class="gc"><a href="/gc">Global Chat</a></li>
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="dropbtn">Info</a>
+						<div class="dropdown-content">
+							<a href="./contact.html">Contact Me</a>
+							<a href="./privacy.html">Privacy Policy</a>
+							<a href="./tac.html">Terms &amp; Conditions</a>
+						</div>
+				</li>
 			</ul>
-		</footer>
+		</nav>
+		
+		<!-- Navbar for mobile users -->
+		<div class="mobileNavMenu" id="mobileMenu">
+			<a href="javascript:void(0)" class="closeNavBtn" onclick="closeMobileNav();">&times;</a>
+			<div class="mobileNavItems">
+				<a href="javascript:void(0)" style="font-size: 30px; color: darkgreen;"><b>PulseRoot</b></a>
+				<a href="javascript:void(0)">&nbsp;</a> <!-- Seperator -->
+				<a href="/">Home</a>
+				<a href="/gc">Global Chat</a>
+				<a href="/info.html">Legal/Tech Info</a>
+			</div>
+		</div>
+
+		<main>
+			<h1>Contact The Team</h1>
+			<h2>Whose site is it, anyway!?</h2>
+
+			<hr/>
+
+			<h3>Development - <i>Diamond Grid</i></h3>
+			<p><a href="https://www.diamondgrid.ga">Official Website</a> <i class="fas fa-globe"></i></p>
+			<h4>Contact Info</h4>
+			<p><a href="https://www.github.com/diamondgrid" target="_blank">Official GitHub</a> <i class="fab fa-github"></i></p>
+			<p><a href="mailto:smarti3plays@gmail.com">Business Email</a> <i class="far fa-envelope"></i></p>
+	
+			<hr />
+	
+			<h3>Developer - <i>Smartie</i></h3>
+			<h4>Contact Info</h4>
+			<p>For the quickest results, contact me on Discord: <b>Smartie#5434</b></p>
+			<h4>Additional Contact Methods</h4>
+			<p><a href="mailto:smarti3plays@gmail.com">Business Email</a> <i class="far fa-envelope"></i></p>
+			<p><a href="https://www.github.com/SmartieCodes/" target="blank_">GitHub</a> <i class="fab fa-github"></i></p>
+			<p><a href="https://www.twitter.com/SmartiePlays_/" target="blank_">Twitter</a> <i class="fab fa-twitter"></i></p>
+			<p><a href="/profile/Smartie">PulseRoot Profile</a></p>
+			
+			<hr/>
+			
+			<h3>Head Administrator - <i>DankTheory</i></h3>
+			<h4>Contact Info</h4>
+			<p>DankTheory#0957 <i class="fab fa-discord"></i></p>
+			<p><a href="/profile/DankTheory">PulseRoot Profile</a></p>
+			
+			<hr/>
+	
+			<h3>Bug Reports</h3>
+			<p>Please send any bug reports to the <a href="https://www.github.com/SmartieCodes/pulseroot/issues/">GitHub repo</a>.</p>
+			
+			<footer>
+				<ul class="foot">
+					<li><a href="./privacy.html">Privacy Policy</a> |</li>
+					<li><a href="./tac.html">Terms &amp; Conditions</a> |</li>
+					<li><a href="./info.html">Full Info</a></li>
+				</ul>
+			</footer>
+		</main>
 	</body>
 
 </html>

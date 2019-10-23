@@ -7,122 +7,187 @@ html
 			width:auto;
 			}
 		title PulseRoot Profile Settings
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+		script(src='/functions.js' type='text/javascript')
 	body
-		ul.navbar
-
-			li.logotitle
-
-				a(href='/') PulseRoot
-
-			li
-
-				a(href='/gc') Global Chat
-
-			li.dropdown
-
-				a.dropbtn(href='javascript:void(0)') Info
-
-				.dropdown-content
-					a(href='/contact.html') Contact Me
-					a(href='/privacy.html') Privacy Policy
-					a(href='/tac.html') Terms & Conditions
-
-		h1 Profile Settings
-		h2 Set things here. Simple.
-
-		hr
-
-		p(style="color:red") Usernames are locked, so you cannot change them.
-		input(type="text" disabled value=userinfo.username)
-
-		form(action='/profile/save/display', method='POST')
-			h3 Display Name
-			input(type="text" name="display" placeholder="Display Name")
-			br
-			button(type="submit") Update Display Name
-
-		form(action='/profile/save/password', method='POST')
-			h3 Password
-			if(messagePass)
-				p(style="color:red") #{messagePass}
-			input(type="password" name="currentPass" required placeholder="Current Password")
-			br
-			br
-			input(type="password" name="newPass" required placeholder="New Password")
-			br
-			button(type="submit") Update Password
-
-		form(action='/profile/save/color', method='POST')
-			h3 Color Picker
-			input(type="color" name="namecolor")
-			button(type="submit" style="display:block") Update Color
-
-		h2 Integrations
-		h3 Discord
-		p Integrating with Discord allows you to use your Discord avatar as your PulseRoot avatar, along with more in the future.
-		if(!discordInfo)
-			a(href="/auth/discord/login")
-				button(type="button") Connect your Discord account
-		if(discordInfo)
-			h4 Currently Connected Account
-			p
-				img(height="128px" width="auto" alt=`${discordInfo.username}'s Profile Picture` src=`https://cdn.discordapp.com/avatars/${discordInfo.id}/${discordInfo.avatar}.jpg`)
-			p #{discordInfo.username}&num;#{discordInfo.discriminator}
-			if(!userinfo.avatar || !userinfo.avatar.startsWith('https://cdn.discordapp.com'))
-				a(href="/profile/save/avatar?service=discord")
-					button(type="button") Use Discord Avatar
-			else
-				button(type="button" disabled) Discord Avatar Set
-				a(href="/profile/save/avatar?service=discord")
-					button(type="button" title="Discord avatars are lost as soon as you set a new one, so you may wish to refresh your avatar if you set a new one on Discord.") Refresh Avatar
+		nav
+			ul.navbar
 			
-		h3 Twitter
-		p Integrating with Twitter not only lets you use your Twitter avatar as your PulseRoot avatar, but you can also use your Twitter bio as your PulseRoot description!
-		if(!twitterInfo)
-			form(action='/auth/twitter/login' method='POST')
-				h3 Twitter Username
-				input(type="text" required name="twitterUser" placeholder="SmartiePlays_")
-				button(type="button" style="display:block") Connect your Twitter account
-		if(twitterInfo)
-			h4 Currently Connected Account
-			p
-				img(src=twitterInfo.avURL height="128px" width="auto" alt=`${twitterInfo.tag}'s Profile Picture`)
-			p #{twitterInfo.displayName} (&commat;#{twitterInfo.tag})
-			h5 Bio
-			p #{twitterInfo.desc}
-			if(!userinfo.avatar || !userinfo.avatar.startsWith('https://pbs.twimg.com'))
-				a(href="/profile/save/avatar?service=twitter")
-					button(type="button") Use Twitter Avatar
+				li.mobileNavOpen
+					a(onclick='showMobileNav()') PulseRoot
+	
+				li.logotitle
+	
+					a(href='/') PulseRoot
+	
+				li.gc
+	
+					a(href='/gc') Global Chat
+	
+				li.dropdown
+	
+					a.dropbtn(href='javascript:void(0)') Info
+	
+					.dropdown-content
+						a(href='/contact.html') Contact Me
+						a(href='/privacy.html') Privacy Policy
+						a(href='/tac.html') Terms & Conditions
+						
+				li.dropdown.account
+					if(userinfo)
+						a.dropbtn(href='javascript:void(0)') #{userinfo.username}
+						.dropdown-content
+							a(href='/profile') View Profile
+							a(href='/logout') Logout
+					if(!userinfo)
+						a(href='/login') Login &amp; Signup
+						
+		<!-- Navbar for mobile users -->
+		div.mobileNavMenu#mobileMenu
+			a(href="javascript:void(0)" class="closeNavBtn" onclick="closeMobileNav()") &times;
+			div.mobileNavItems
+				a(href='javascript:void(0)' style="font-size: 30px; color: darkgreen;")
+					b PulseRoot
+				a(href='javascript:void(0)') &nbsp;
+				a(href='/index.html') Home
+				a(href='/gc') Global Chat
+				a(href='/info.html') Legal/Tech Info
+				if(user)
+					a(href='/profile') #{user.username}'s Profile
+					a(href='/logout') Logout
+				else
+					a(href='/login') Login &amp; Signup
+
+		main
+			h1 Profile Settings
+			h2 Set things here. Simple.
+	
+			hr
+
+			h2 Details
+	
+			p(style="color:red") Usernames are locked, so you cannot change them.
+			input(type="text" disabled value=userinfo.username)
+	
+			form(action='/profile/save/display', method='POST')
+				h3 Display Name
+				input(type="text" name="display" placeholder="Display Name")
+				br
+				button(type="submit") Update Display Name
+	
+			if(!faInfo)
+				form(action='/profile/save/password', method='POST')
+					h3 Password
+					if(messagePass)
+						p(style="color:red") #{messagePass}
+					label(for="currentPass") Current Password
+					input(type="password" name="currentPass" id="currentPass" required placeholder="Current Password")
+					br
+					label(for="newPass") New Password
+					input(type="password" name="newPass" id="newPass" required placeholder="New Password")
+					br
+					button(type="submit") Update Password
 			else
-				button(type="button" disabled) Twitter Avatar Set
-			form(action='/profile/save/desc?service=twitter', method='POST')
-				button(type="submit") Use Twitter Bio
+				form(action='/profile/save/password', method='POST')
+					h3 Password
+					if(messagePass)
+						p(style="color:red") #{messagePass}
+					label(for="currentPass") Current Password
+					input(type="password" name="currentPass" id="currentPass" required placeholder="Current Password")
+					br
+					label(for="newPass") New Password
+					input(type="password" name="newPass" id="newPass" required placeholder="New Password")
+					br
+					label(for="token") 2FA Token
+					input(type="number" name="faToken" id="token" required placeholder="XXXXXX")
+					br
+					button(type="submit") Update Password
+	
+			form(action='/profile/save/color', method='POST')
+				h3 Color Picker
+				input(type="color" name="namecolor")
+				button(type="submit" style="display:block") Update Color
 
-		h3 Miicord
-		p Coming Soon
+			h2 Account Security
+			h3 Two-Factor Auth
+			a(href="/2fa/setup")
+				button(type="button") 2FA Setup
+	
+			h2 Integrations
+			h3 Discord
+			p Integrating with Discord allows you to use your Discord avatar as your PulseRoot avatar, along with more in the future.
+			if(!discordInfo)
+				a(href="/auth/discord/login")
+					button(type="button") Connect your Discord account
+			if(discordInfo)
+				h4 Currently Connected Account
+				p
+					img(height="128px" width="auto" alt=`${discordInfo.username}'s Profile Picture` src=`https://cdn.discordapp.com/avatars/${discordInfo.id}/${discordInfo.avatar}.jpg`)
+				p #{discordInfo.username}&num;#{discordInfo.discriminator}
+				if(!userinfo.avatar || !userinfo.avatar.startsWith('https://cdn.discordapp.com'))
+					a(href="/profile/save/avatar?service=discord")
+						button(type="button") Use Discord Avatar
+				else
+					button(type="button" disabled) Discord Avatar Set
+					a(href="/profile/save/avatar?service=discord")
+						button(type="button" title="Discord avatars are lost as soon as you set a new one, so you may wish to refresh your avatar if you set a new one on Discord.") Refresh Avatar
+				
+			h3 Twitter
+			p Integrating with Twitter not only lets you use your Twitter avatar as your PulseRoot avatar, but you can also use your Twitter bio as your PulseRoot description!
+			if(!twitterInfo)
+				form(action='/auth/twitter/login' method='POST')
+					h3 Twitter Username
+					input(type="text" required name="twitterUser" placeholder="SmartiePlays_")
+					button(type="submit" style="display:block") Connect your Twitter account
+			if(twitterInfo)
+				h4 Currently Connected Account
+				p
+					img(src=twitterInfo.avURL height="128px" width="auto" alt=`${twitterInfo.tag}'s Profile Picture`)
+				p #{twitterInfo.displayName} (&commat;#{twitterInfo.tag})
+				h5 Bio
+				p #{twitterInfo.desc}
+				if(!userinfo.avatar || !userinfo.avatar.startsWith('https://pbs.twimg.com'))
+					a(href="/profile/save/avatar?service=twitter")
+						button(type="submit") Use Twitter Avatar
+				else
+					button(type="button" disabled) Twitter Avatar Set
+					a(href="/profile/save/avatar?service=twitter")
+						button(type="submit") Refresh Twitter Avatar
+				form(action='/profile/save/desc?service=twitter', method='POST')
+					button(type="submit") Use Twitter Bio
+	
+			h3 Reddit
+			p Integrating with Reddit lets you show off your username and amount of upvotes on your PulseRoot profile... nice.
 
-		h3 Google
-		p Coming Soon
+			h2 Advanced
+			h3 Delete Account
+			p You wanna delete your PulseRoot account? I'm sorry to hear that! We must've done something really bad to warrant this. Before deleting your account, why not 
+				a(href="mailto:smarti3plays@gmail.com") shoot me an e-mail
+				| ? It'll help me improve user experience. If you don't want to, that's fine. You don't have to. Just know we'll miss you.
+			form(action="/account/delete" method="POST")
+				button(type="submit") Delete PulseRoot Account
 
-		h3 GitHub
-		p Coming Soon
-		footer
-
-			ul.foot
-
-				li
-
-					a(href='./privacy.html') Privacy Policy
-
-					|  |
-
-				li
-
-					a(href='./tac.html') Terms & Conditions
-
-					|  |
-
-				li
-
-					a(href='./info.html') Full Info
+			h3 Download Info
+			p Ay, think we're sneaking on ya? I can assure we're not. Still don't believe us? Oh, all right. Take a look at the info we keep on you. It comes in a nice downloadable JSON file, how nice.
+			a(href="/download_data.json" download)
+				button(type="button") Download PulseRoot Data
+			footer
+	
+				ul.foot
+	
+					li
+	
+						a(href='./privacy.html') Privacy Policy
+	
+						|  |
+	
+					li
+	
+						a(href='./tac.html') Terms & Conditions
+	
+						|  |
+	
+					li
+	
+						a(href='./info.html') Full Info
 

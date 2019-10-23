@@ -1,0 +1,103 @@
+doctype html
+
+<!--   This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+head
+
+	style.
+	
+		body: { padding: 10px; }
+
+	script(src='/socket.io/socket.io.js')
+
+	script(src='https://code.jquery.com/jquery-1.6.3.js')
+	
+	script(src='/bower_components/crypto-js/crypto-js.js')
+
+	script(src='/functions.js')
+	script(src='/IndexedDB.js')
+
+	script.
+	
+		var indexSupported;
+		const body = document.getElementById("body");
+		
+		$(function () {
+
+		var socket = io();
+
+		$('form').submit(function(){
+		
+		var date = new Date();
+		date.setTime(Date.now());
+		var dateHour = date.getHours().toString();
+		if(dateHour.length === 1) var dateHour = '0' + dateHour
+		var dateMinute = date.getMinutes().toString();
+		if(dateMinute.length === 1) var dateMinute = '0' + dateMinute
+		var date = `${dateHour}:${dateMinute}`
+		
+		const secretKey = uuidv4();
+		
+		const encryptedMessage = CryptoJS.AES.encrypt($('#m').val(), secretKey).toString();
+
+		var usr = '#{userinfo.username}'
+		var dis = '#{userinfo.display}'
+		var nc = '#{userinfo.namecolor}'
+		var id = '#{partner.username}'
+		socket.emit('pm', encryptedMessage, usr, dis, nc, id, secretKey);
+
+		var msg = $('#m').val();
+		
+		$('#m').val('');
+
+		return false;
+
+		});
+
+		socket.on('pm', function(data){
+		
+		var username = data.username
+		
+		const decryptMsg = CryptoJS.AES.decrypt(data.msg, data.secretKey);
+		const decryptedMessage = decryptMsg.toString(CryptoJS.enc.Utf8);
+		
+		$('#messages').append($('<li><span style="font-weight: bold; color: ' + data.namecolor + '"><a href="/profile/' + data.username + '" class="display" style="padding: 0; margin: 0">' + data.display + '</a></span><span class="timestamp">' + data.date + '</span><br/><span style="color:' + data.color + '" class="msg">' + decryptedMessage + '</span></li>'));
+		var div = document.getElementById("chat");
+		div.scrollTop = div.scrollHeight;
+
+		if(!testForIndex()) return;
+
+		const IndexMessage = {
+			username : data.username,
+			display : data.display,
+			namecolor : data.namecolor,
+			text : decryptedMessage,
+			timestamp : data.date
+		}
+
+		console.log(IndexMessage);
+
+		storeIntoIndex(IndexMessage, '#{partner.username}');
+		});
+		});
+	title PulseRoot - #{partner.username} PMs
+
+	link(rel='stylesheet' type='text/css' href='/default.css')
+	link(rel="stylesheet" type="text/css" href="/chat.css")
+	meta(name='theme-color' content='#006d3f')
+	meta(name='viewport' content='width=device-width initial-scale=1.0')
+	meta(name='robots' content='noindex nofollow')
+	<!-- Don't want search engines snooping here -->
+
+body(onload=`loadInMessages('${partner.username}')`)
+	h4
+		a(href='../index.html') Back To Home
+		span.floatRight Talking to 
+			a(href=`/profile/${partner.username}`) #{partner.display}
+	div#chat
+		ul#messages
+	form(action='')
+
+		input#m(autocomplete='off' placeholder=`Send a message to ${partner.username}...`)
+
+		button Send

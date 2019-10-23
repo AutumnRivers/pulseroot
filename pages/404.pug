@@ -1,0 +1,72 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', type='text/css', href='/default.css')
+		title 404 Not Found
+		script(src='/functions.js' type='text/javascript')
+		meta(name='viewport' content='width=device-width initial-scale=1.0')
+	body
+		nav
+			ul.navbar
+			
+				li.mobileNavOpen
+					a(onclick='showMobileNav()') PulseRoot
+
+				li.logotitle
+
+					a(href='/index.html') PulseRoot
+
+				li.gc
+
+					a(href='/gc') Global Chat
+
+				li.dropdown
+
+					a.dropbtn(href='javascript:void(0)') Info
+
+					.dropdown-content
+						a(href='/contact.html') Contact Me
+						a(href='/privacy.html') Privacy Policy
+						a(href='/tac.html') Terms & Conditions
+						
+				li.dropdown.account
+						if(userinfo)
+							a.dropbtn(href='javascript:void(0)') #{userinfo.username}
+							.dropdown-content
+								a(href='/profile') View Profile
+								a(href='/logout') Logout
+						if(!userinfo)
+							a(href='/login') Login &amp; Signup
+						
+		<!-- Navbar for mobile users -->
+		div.mobileNavMenu#mobileMenu
+			a(class="closeNavBtn" onclick="closeMobileNav()") &times;
+			div.mobileNavItems
+				a(style="font-size: 30px; color: darkgreen;")
+					b PulseRoot
+				a &nbsp;
+				a(href='/index.html') Home
+				a(href='/gc') Global Chat
+				a(href='/info.html') Legal/Tech Info
+				if(user)
+					a(href='/profile') #{user.username}'s Profile
+					a(href='/logout') Logout
+				else
+					a(href='/login') Login &amp; Signup
+
+		main
+			h1 404
+			h2 That doesn't exist... or does it?
+			p.center
+				img(src="/vsauce_michael.jpg" alt="It doesn't." width="200px" height="auto" class="banner")
+				
+			hr
+			
+			h3 What happened?
+			p You tried going to a page that doesn't exist.
+			
+			h3 But I know it exists!
+			p Well, it doesn't.
+			
+			h3 Yes it does!!!
+			p I made this site, I know what exists. This does not exist.

@@ -1,15 +1,47 @@
-@import url('https://fonts.googleapis.com/css?family=Ubuntu');
-@import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
+/*
+ *This Source Code Form is subject to the terms of the Mozilla Public
+ *License, v. 2.0. If a copy of the MPL was not distributed with this
+ *file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
+@import url('https://fonts.googleapis.com/css?family=Ubuntu'); /* Google Fonts - Ubuntu */
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono'); /* Google Fonts - Ubuntu Mono */
+@import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css'); /* FontAwesome */
+
+/* Main Content */
 body {
 	/* background: #2C2F33; */
 	background: #152b16;
 	color: white;
 	font-size: 100%;
-	font-family: 'Ubuntu', 'sans-serif';
+	font-family: 'Ubuntu', 'helvetica', 'arial', 'sans-serif';
 	padding-left: 10px;
 	padding-right: 10px;
 	margin: 0;
+	padding: 0;
+}
+
+main {
+	padding: 20px;
+}
+
+pre {
+	background: rgba(0,0,0,0.7);
+	padding: 15px;
+	margin: 0;
+	font-family: 'Ubuntu Mono', 'Consolas', monospace;
+	overflow: auto;
+}
+
+::selection {
+	color:rgba(0,255,0,0.4);
+	background:rgba(0,0,0,0.1);
+}
+
+.define {
+	display: inline;
+	background: rgba(0,0,0,0.4);
+	font-family: "Ubuntu Mono", "Consolas", monospace;
 }
 
 a {
@@ -38,7 +70,6 @@ footer {
 }
 
 /* Dropdown Styling */
-
 ul.navbar {
 	list-style-type: none;
 	margin: 0;
@@ -56,7 +87,7 @@ ul.navbar {
 	float: left;
 }
 
-li a, .dropbtn {
+nav ul li a, footer ul li a, .dropbtn {
 	display: inline-block;
 	color: white;
 	text-align: center;
@@ -98,7 +129,73 @@ li.dropdown {
 	display: block;
 }
 
+/* Custom Checkboxes/Radio Buttons */
+.container {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 1em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #001902;
+	border: 1px solid transparent;
+	border-radius: 5px;
+}
+
+.container:hover input ~ .checkmark {
+	background-color: #001401;
+}
+
+.container input:checked ~ .checkmark {
+	background-color: #001902;
+}
+
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+.container .checkmark:after {
+	left: 9px;
+	top: 5px;
+	width: 5px;
+	height: 10px;
+	border: solid lime;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
 /* The rest */
+.floatLeft {
+	float: left;
+}
 
 .logotitle {
 	font-weight: bold;
@@ -131,16 +228,26 @@ i {
 	float: right;
 }
 
-input, button {
+input, button, textarea {
 	/*background: #23272A;*/
 	background:#002b03;
 	color: white;
 	border: 1px solid black;
 	border-radius: 5px;
-	font-family: 'Ubuntu', 'sans-serif'
+	font-family: 'Ubuntu', 'sans-serif';
 	margin: 5px;
 	padding: 10px;
 	width: 30%;
+}
+
+textarea {
+	height: 100px;
+	width: 95%;
+	resize: vertical;
+}
+
+textarea[placeholder] {
+	font-family: 'Ubuntu Mono', monospace;
 }
 
 button {
@@ -165,6 +272,19 @@ button:hover {
 	cursor: pointer;
 }
 
+input[type='checkbox'], input[type='radio'] {
+	width: auto;
+}
+
+select {
+	background: #002b03;
+	color: white;
+	border: 1px solid black;
+	border-radius: 5px;
+	font-family: 'Ubuntu', 'sans-serif';
+	padding: 5px;
+}
+
 button[disabled], input[disabled] {
 	color: grey;
 	cursor: not-allowed;
@@ -181,11 +301,154 @@ img:not(.no-round) {
 	border-radius: 100%;
 }
 
+form.field * {
+	margin: 2px 5px;
+}
+
+.verifyDiv {
+	width: 70%;
+}
+
+.avatar {
+	height: 200px;
+	width: auto;
+}
+
+.horizRuleMobile {
+	display: none;
+}
+
+hr {
+	border-color: green;
+}
+
 /* Responsiveness */
+.mobileNavOpen {
+	display: none;
+}
+
+.mobileNavMenu {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.9);
+	overflow-x: hidden;
+	transition: 0.5s;
+}
+
+.mobileNavMenu a {
+	padding: 8px;
+	text-decoration: none;
+	font-size: 36px;
+	color: white;
+	display: block;
+	transition: 0.3s;
+}
+
+.mobileNavMenu a:hover, .mobileNavMenu a:focus {
+	color: #f1f1f1;
+}
+
+.mobileNavMenu .closeNavBtn {
+	position: absolute;
+	top: 20px;
+	right: 45px;
+	font-size: 60px;
+}
+
+.mobileNavItems {
+	position: relative;
+	top: 25%;
+	width: 100%;
+	text-align: center;
+	margin-top: 30px;
+}
+
+/* Columns */
+.column {
+	width: 30%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.mobileOnly {
+	display: none;
+}
+
+.centerCheck {
+	width: auto;
+	display: inline-block;
+}
+
 @media screen and (max-width: 600px) {
+	.mobileNavOpen {
+		display: inline-block;
+	}
+	ul.navbar li.logotitle, ul.navbar li.gc, ul.navbar li.dropdown, li.account {
+		display: none;
+	}
+	
+	.mobileNavMenu a {
+		font-size: 20px;
+	}
+	.mobileNavMenu .closeNavBtn {
+		font-size: 40px;
+		top: 15px;
+		right: 35px;
+	}
+	
 	footer {
 		width: auto;
 		margin: 5px;
 		font-size: 10px;
+	}
+	img.banner {
+		width: 90%;
+		height: auto;
+	}
+	.verifyDiv {
+		width: 95%;
+	}
+	.verifyDiv textarea {
+		width: 90%;
+		resize: vertical;
+	}
+	.verifyDiv input[type=text] {
+		width: 90%;
+	}
+	.avatar {
+		width: 60%;
+		height: auto;
+	}
+	.rightInfo {
+		display: block;
+		float: none;
+		text-align: left;
+		width: 100%;
+	}
+	.horizRuleMobile {
+		display: block;
+	}
+	input {
+		width: 80%;
+	}
+	input[type=color] {
+		width: 100%;
+	}
+	footer {
+		display: none;
+	}
+
+	.column {
+		width: auto;
+		display: block;
+	}
+
+	.mobileOnly {
+		display: block;
 	}
 }
